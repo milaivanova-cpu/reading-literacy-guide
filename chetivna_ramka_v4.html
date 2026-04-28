@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Четивна грамотност — Рамка за дизайн на задачи</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root {
+  --bg:#F5F2EC; --ink:#1A1714; --ink-soft:#5A5550; --rule:#D4CFC7; --accent:#C84B2F;
+  --l1:#2D5986; --l1s:#E8EEF5; --l2:#3D7A5E; --l2s:#E8F2ED; --l3:#8B4A9C; --l3s:#F2EAF5; --l4:#7A4A1E; --l4s:#F5EDE5;
+  --ga:#1E5799; --gb:#C84B2F; --gc:#1E6B4A;
+  --ta:#B85C20; --tb:#5A6B2E; --tc:#1A5F7A; --td:#7A3B6E;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;}
+
+/* HEADER */
+header{padding:28px 48px 20px;border-bottom:1px solid var(--rule);display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+header h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;line-height:1.2;}
+header h1 em{font-style:italic;color:var(--accent);}
+.hm{margin-left:auto;font-size:11px;color:var(--ink-soft);line-height:1.9;text-align:right;}
+
+/* STAGE TABS */
+.stage-bar{padding:0 48px;border-bottom:2px solid var(--rule);display:flex;gap:0;align-items:flex-end;}
+.stage-tab{padding:14px 28px 12px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--ink-soft);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap;}
+.stage-tab:hover{color:var(--ink);}
+.stage-tab.active[data-stage="primary"]{color:var(--ga);border-bottom-color:var(--ga);}
+.stage-tab.active[data-stage="middle"]{color:var(--gb);border-bottom-color:var(--gb);}
+.stage-tab.active[data-stage="high"]{color:var(--gc);border-bottom-color:var(--gc);}
+.stage-tab .stagesub{font-size:10px;font-weight:400;display:block;margin-top:1px;}
+.nvo-badge{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.05em;vertical-align:middle;background:#FEF3C7;color:#92400E;}
+
+/* STAGE PANELS */
+.stage-panel{display:none;}
+.stage-panel.active{display:block;}
+
+/* LEGEND */
+.legend-bar{padding:10px 48px;border-bottom:1px solid var(--rule);display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+.ll{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+.li{display:flex;gap:14px;flex-wrap:wrap;}
+.ld{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-soft);}
+.ld span{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+/* CONTEXT BAR */
+.ctx{margin:14px 48px 0;padding:10px 14px;border-radius:6px;font-size:12px;display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+.ctx[data-stage="primary"]{background:#EFF6FF;border-left:3px solid var(--ga);}
+.ctx[data-stage="middle"]{background:#FEF3EE;border-left:3px solid var(--gb);}
+.ctx[data-stage="high"]{background:#ECFDF5;border-left:3px solid var(--gc);}
+.cxi{display:flex;flex-direction:column;gap:2px;min-width:130px;}
+.cxi strong{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);}
+.cxi span{color:var(--ink);font-size:12px;}
+
+/* TEXT TYPE SELECTOR */
+.sel{padding:14px 48px 0;}
+.sll{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px;}
+.ttabs{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--rule);border-radius:8px;overflow:hidden;width:fit-content;}
+.tg{display:flex;flex-direction:column;}
+.tgl{padding:4px 13px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-align:center;}
+.tg[data-tg="hud"] .tgl{background:var(--ta);}
+.tg[data-tg="info"] .tgl{background:var(--tb);}
+.tg[data-tg="neprek"] .tgl{background:var(--ta);}
+.tg[data-tg="prek"] .tgl{background:var(--tb);}
+.tg[data-tg="smesen"] .tgl{background:var(--tc);}
+.tg[data-tg="medien"] .tgl{background:var(--td);}
+.tg[data-tg="stil"] .tgl{background:#2D5986;}
+.tg[data-tg="dis"] .tgl{background:#bbb;}
+.ti{display:flex;}
+.tb2{padding:8px 15px;background:#fff;border:none;border-right:1px solid var(--rule);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink-soft);transition:all .15s;white-space:nowrap;}
+.tb2:hover:not(:disabled){background:var(--bg);color:var(--ink);}
+.tb2.active{background:var(--bg);color:var(--ink);font-weight:600;}
+.tb2[data-group="hud"].active{box-shadow:inset 0 -3px 0 var(--ta);}
+.tb2[data-group="info"].active{box-shadow:inset 0 -3px 0 var(--tb);}
+.tb2[data-group="neprek"].active{box-shadow:inset 0 -3px 0 var(--ta);}
+.tb2[data-group="prek"].active{box-shadow:inset 0 -3px 0 var(--tb);}
+.tb2[data-group="smesen"].active{box-shadow:inset 0 -3px 0 var(--tc);}
+.tb2[data-group="medien"].active{box-shadow:inset 0 -3px 0 var(--td);}
+.tb2[data-group="stil"].active{box-shadow:inset 0 -3px 0 #2D5986;}
+.tb2.dis{background:var(--bg);color:#bbb;cursor:not-allowed;font-style:italic;}
+.tb2.dis::after{content:attr(data-from);display:block;font-size:9px;color:#aaa;font-style:normal;margin-top:1px;}
+
+/* COMPLEXITY NOTE */
+.cnote{margin:8px 48px 0;padding:8px 12px;background:#fff;border-left:3px solid var(--accent);border-radius:0 4px 4px 0;font-size:12px;color:var(--ink-soft);display:none;}
+.cnote.vis{display:block;}
+.cnote strong{color:var(--accent);}
+
+/* MATRIX */
+.msec{padding:18px 48px 36px;}
+.mgrid{display:grid;gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;}
+.mgrid.cols3{grid-template-columns:110px 1fr 1fr 1fr;}
+.mgrid.cols4{grid-template-columns:110px 1fr 1fr 1fr 1fr;}
+
+.ch{padding:12px 16px;font-size:12px;font-weight:600;border-bottom:2px solid var(--rule);border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:3px;}
+.ch:last-child{border-right:none;}
+.ch.empty{background:var(--bg);}
+.chn{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;}
+.chnm{font-size:12px;color:var(--ink);}
+.chd{font-size:10px;color:var(--ink-soft);font-weight:400;}
+.ch.l1{background:var(--l1s);border-top:4px solid var(--l1);}
+.ch.l2{background:var(--l2s);border-top:4px solid var(--l2);}
+.ch.l3{background:var(--l3s);border-top:4px solid var(--l3);}
+.ch.l4{background:var(--l4s);border-top:4px solid var(--l4);}
+.ch.l1 .chn{color:var(--l1);}
+.ch.l2 .chn{color:var(--l2);}
+.ch.l3 .chn{color:var(--l3);}
+.ch.l4 .chn{color:var(--l4);}
+.ch.l3.dim{opacity:.45;}
+.ch.l3.dim::after{content:'(рядко в I–IV)';display:block;font-size:9px;color:var(--ink-soft);font-weight:400;margin-top:2px;}
+
+.rh{padding:16px 10px;background:var(--bg);border-right:2px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);min-height:130px;}
+.rh.lr{border-bottom:none;}
+
+.cell{padding:16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:#fff;vertical-align:top;}
+.cell:last-child{border-right:none;}
+.cell.lr{border-bottom:none;}
+.cell.na{background:var(--bg);display:flex;align-items:center;justify-content:center;padding:12px;}
+.cell.na .nal{font-size:11px;color:#bbb;font-style:italic;text-align:center;line-height:1.5;}
+.ci{display:none;}
+.ci.on{display:block;}
+
+.dbr{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px;}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600;}
+.badge.easy{background:#E8F5E9;color:#2E7D32;}
+.badge.medium{background:#FFF8E1;color:#F57F17;}
+.badge.hard{background:#FCE4EC;color:#C62828;}
+
+.exq{font-family:'DM Serif Display',serif;font-size:13px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:7px;padding:8px 10px;background:var(--bg);border-radius:4px;border-left:2px solid var(--rule);}
+.subj-tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.04em;margin-right:4px;margin-bottom:3px;background:#E8EEF5;color:#2D5986;}
+.subj-tag.mat{background:#FFF3E0;color:#E65100;}
+.subj-tag.sci{background:#E8F5E9;color:#2E7D32;}
+.subj-tag.hist{background:#F3E8FF;color:#6B21A8;}
+
+.itog{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:0;margin-top:4px;display:flex;align-items:center;gap:4px;transition:color .15s;}
+.itog:hover{color:var(--accent);}
+.itog .arr{transition:transform .2s;display:inline-block;}
+.itog.open .arr{transform:rotate(90deg);}
+.ibody{display:none;margin-top:7px;}
+.ibody.open{display:block;}
+.ibody ul{list-style:none;padding:0;margin:0;}
+.ibody li{font-size:11px;color:var(--ink-soft);padding:3px 0 3px 12px;position:relative;border-bottom:1px solid var(--bg);}
+.ibody li:last-child{border-bottom:none;}
+.ibody li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:10px;}
+.trap{margin-top:5px;padding:5px 9px;background:#FFF3E0;border-radius:4px;font-size:10px;color:#7B4500;}
+.trap strong{color:#E65100;}
+.prod-note{margin-top:6px;padding:5px 9px;background:#EFF6FF;border-radius:4px;font-size:10px;color:#1E3A5F;}
+.prod-note strong{color:var(--l1);}
+
+/* FOOTER */
+.foot{margin:0 48px 36px;padding:14px 18px;background:#fff;border:1px solid var(--rule);border-radius:8px;font-size:12px;color:var(--ink-soft);display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;align-items:start;}
+.foot h4{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:5px;}
+.prog-item{display:flex;align-items:center;gap:6px;margin:3px 0;font-size:11px;}
+.prog-item .gb{padding:1px 5px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;}
+
+@media(max-width:900px){
+  header,.stage-bar,.sel,.msec,.legend-bar,.cnote,.foot,.ctx{padding-left:16px;padding-right:16px;}
+  .mgrid.cols3,.mgrid.cols4{grid-template-columns:70px 1fr 1fr 1fr;font-size:11px;}
+  .foot{grid-template-columns:1fr;}
+  .stage-tab{padding:11px 14px 9px;font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Четивна грамотност<br>— <em>Рамка за дизайн на задачи</em></h1>
+  <div class="hm">I–X клас · Независимо от предмета<br>Изберете етап → тип текст → разгледайте клетките</div>
+</header>
+
+<!-- STAGE TABS -->
+<div class="stage-bar">
+  <button class="stage-tab active" data-stage="primary">Начален етап (I–IV)<span class="stagesub">Четири стъпки на четене</span></button>
+  <button class="stage-tab" data-stage="middle">Прогимназия (V–VII)<span class="stagesub">Три нива на разбиране</span></button>
+  <button class="stage-tab" data-stage="high">Гимназия (VIII–X) <span class="nvo-badge">НВО X</span><span class="stagesub">Пет стила + продуктивни задачи</span></button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PRIMARY STAGE  I–IV  (PIRLS)
+══════════════════════════════════════════ -->
+<div class="stage-panel active" data-stage="primary">
+  <div class="legend-bar">
+    <span class="ll">Трудност</span>
+    <div class="li">
+      <div class="ld"><span style="background:#2E7D32"></span>Лесна</div>
+      <div class="ld"><span style="background:#F57F17"></span>Оптимална</div>
+      <div class="ld"><span style="background:#C62828"></span>Трудна</div>
+    </div>
+    <span class="ll" style="margin-left:12px;">Предмети</span>
+    <div class="li">
+      <div class="ld"><span class="subj-tag" style="font-size:10px;">БЕЛ</span>Български</div>
+      <div class="ld"><span class="subj-tag mat" style="font-size:10px;">МАТ</span>Математика</div>
+      <div class="ld"><span class="subj-tag sci" style="font-size:10px;">ПРИ</span>Природни науки</div>
+    </div>
+  </div>
+  <div class="ctx" data-stage="primary">
+    <div class="cxi"><strong>Стъпки на четене</strong><span>4 — от намиране до оценяване</span></div>
+    <div class="cxi"><strong>Типове текст</strong><span>Художествен · Информационен · Инструкция</span></div>
+    <div class="cxi"><strong>Обем на текста</strong><span>150–400 думи</span></div>
+    <div class="cxi"><strong>Стъпка 4</strong><span>Рядко в I–II клас, въвежда се от III–IV клас</span></div>
+    <div class="cxi"><strong>НВО 4. клас</strong><span>25 задачи · 60 мин. · не само четене</span></div>
+    <div class="cxi"><strong>Важно</strong><span>Задачи за четене с разбиране може да дава всеки учител — не само по БЕЛ</span></div>
+  </div>
+  <div class="sel">
+    <div class="sll">Изберете тип текст</div>
+    <div class="ttabs" id="tabs-primary">
+      <div class="tg" data-tg="hud"><div class="tgl">Художествен</div><div class="ti">
+        <button class="tb2 active" data-type="p-hud" data-group="hud" data-stage="primary">Разказ / Приказка</button>
+      </div></div>
+      <div class="tg" data-tg="info"><div class="tgl">Информационен</div><div class="ti">
+        <button class="tb2" data-type="p-info" data-group="info" data-stage="primary">Научно-популярен</button>
+        <button class="tb2" data-type="p-instr" data-group="info" data-stage="primary">Инструкция / Правила</button>
+      </div></div>
+    </div>
+  </div>
+  <div class="cnote" id="cn-primary"></div>
+  <div class="msec">
+    <!-- 2×2 card grid for primary — avoids 5-column overflow -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="m-primary">
+
+      <!-- П1 -->
+      <div style="border:1px solid var(--rule);border-top:4px solid var(--l1);border-radius:8px;overflow:hidden;background:#fff;">
+        <div style="padding:12px 16px;background:var(--l1s);display:flex;align-items:baseline;gap:10px;">
+          <span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--l1);font-weight:400;">П1</span>
+          <span style="font-size:14px;font-weight:600;color:var(--ink);">Намери в текста</span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:4px;">Информацията е директно написана — посочи я</span>
+        </div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--rule);" id="p-ex-l1"><div class="ci"></div></div>
+        <div style="padding:14px 16px;" id="p-ds-l1"><div class="ci"></div></div>
+      </div>
+
+      <!-- П2 -->
+      <div style="border:1px solid var(--rule);border-top:4px solid var(--l2);border-radius:8px;overflow:hidden;background:#fff;">
+        <div style="padding:12px 16px;background:var(--l2s);display:flex;align-items:baseline;gap:10px;">
+          <span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--l2);font-weight:400;">П2</span>
+          <span style="font-size:14px;font-weight:600;color:var(--ink);">Свържи идеите</span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:4px;">Направи извод, като свържеш две части от текста</span>
+        </div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--rule);" id="p-ex-l2"><div class="ci"></div></div>
+        <div style="padding:14px 16px;" id="p-ds-l2"><div class="ci"></div></div>
+      </div>
+
+      <!-- П3 -->
+      <div style="border:1px solid var(--rule);border-top:4px solid var(--l3);border-radius:8px;overflow:hidden;background:#fff;">
+        <div style="padding:12px 16px;background:var(--l3s);display:flex;align-items:baseline;gap:10px;">
+          <span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--l3);font-weight:400;">П3</span>
+          <span style="font-size:14px;font-weight:600;color:var(--ink);">Обясни и тълкувай</span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:4px;">Обобщи идея или я обясни с думите си</span>
+        </div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--rule);" id="p-ex-l3"><div class="ci"></div></div>
+        <div style="padding:14px 16px;" id="p-ds-l3"><div class="ci"></div></div>
+      </div>
+
+      <!-- П4 -->
+      <div style="border:1px solid var(--rule);border-top:4px solid var(--l4);border-radius:8px;overflow:hidden;background:#fff;">
+        <div style="padding:12px 16px;background:var(--l4s);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">
+          <span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--l4);font-weight:400;">П4</span>
+          <span style="font-size:14px;font-weight:600;color:var(--ink);">Прецени и оцени</span>
+          <span style="font-size:11px;color:var(--ink-soft);margin-left:4px;">Изкажи мнение за текста и го обоснови</span>
+          <span style="font-size:10px;background:#FEF3C7;color:#92400E;padding:1px 7px;border-radius:3px;font-weight:600;">Рядко в I–II клас</span>
+        </div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--rule);" id="p-ex-l4"><div class="ci"></div></div>
+        <div style="padding:14px 16px;" id="p-ds-l4"><div class="ci"></div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MIDDLE STAGE  V–VII  (PISA)
+══════════════════════════════════════════ -->
+<div class="stage-panel" data-stage="middle">
+  <div class="legend-bar">
+    <span class="ll">Трудност</span>
+    <div class="li">
+      <div class="ld"><span style="background:#2E7D32"></span>Лесна (76–100%)</div>
+      <div class="ld"><span style="background:#F57F17"></span>Оптимална (41–75%)</div>
+      <div class="ld"><span style="background:#C62828"></span>Трудна (0–40%)</div>
+    </div>
+    <span class="ll" style="margin-left:12px;">Нива</span>
+    <div class="li">
+      <div class="ld"><span style="background:#2D5986"></span>Ниво 1 — Намери</div>
+      <div class="ld"><span style="background:#3D7A5E"></span>Ниво 2 — Тълкувай</div>
+      <div class="ld"><span style="background:#8B4A9C"></span>Ниво 3 — Прецени</div>
+    </div>
+    <div class="cxi"><strong>Нива на разбиране</strong><span>3 — намиране · тълкуване · оценяване</span></div>
+    <div class="cxi"><strong>Нов в VI клас</strong><span>Таблица, диаграма и смесен текст</span></div>
+    <div class="cxi"><strong>Нов в VII клас</strong><span>Медиен текст (репортаж, интервю)</span></div>
+    <div class="cxi"><strong>Обем на текста</strong><span>300–600 думи</span></div>
+    <div class="cxi"><strong>НВО VII клас</strong><span>Текст с диаграма като основен формат</span></div>
+  </div>
+  <div class="sel">
+    <div class="sll">Изберете тип текст</div>
+    <div class="ttabs" id="tabs-middle">
+      <div class="tg" data-tg="neprek"><div class="tgl">Непрекъснат</div><div class="ti">
+        <button class="tb2 active" data-type="m-nar" data-group="neprek" data-stage="middle">Нарация</button>
+        <button class="tb2" data-type="m-izl" data-group="neprek" data-stage="middle">Изложение</button>
+        <button class="tb2" data-type="m-arg" data-group="neprek" data-stage="middle">Аргументация</button>
+        <button class="tb2" data-type="m-ins" data-group="neprek" data-stage="middle">Инструкция</button>
+      </div></div>
+      <div class="tg" data-tg="prek"><div class="tgl">Прекъснат</div><div class="ti">
+        <button class="tb2" data-type="m-prk" data-group="prek" data-stage="middle">Таблица/Диаграма</button>
+      </div></div>
+      <div class="tg" data-tg="smesen"><div class="tgl">Смесен</div><div class="ti">
+        <button class="tb2" data-type="m-sme" data-group="smesen" data-stage="middle">Текст + Таблица</button>
+      </div></div>
+      <div class="tg" data-tg="medien"><div class="tgl">Медиен ★ VII</div><div class="ti">
+        <button class="tb2" data-type="m-med" data-group="medien" data-stage="middle">Репортаж/Интервю</button>
+      </div></div>
+    </div>
+  </div>
+  <div class="cnote" id="cn-middle"></div>
+  <div class="msec">
+    <div class="mgrid cols3" id="m-middle">
+      <div class="ch empty"></div>
+      <div class="ch l1"><span class="chn">Н1</span><span class="chnm">Намери в текста</span><span class="chd">Отговорът е директно написан — посочи го</span></div>
+      <div class="ch l2"><span class="chn">Н2</span><span class="chnm">Тълкувай и обобщи</span><span class="chd">Отговорът не е директен — трябва да се изведе</span></div>
+      <div class="ch l3"><span class="chn">Н3</span><span class="chnm">Прецени и оцени</span><span class="chd">Излиза извън текста — сравнява, аргументира</span></div>
+      <div class="rh">Примерна задача</div>
+      <div class="cell" id="m-ex-l1"><div class="ci"></div></div>
+      <div class="cell" id="m-ex-l2"><div class="ci"></div></div>
+      <div class="cell" id="m-ex-l3"><div class="ci"></div></div>
+      <div class="rh lr">Как да я проектираш</div>
+      <div class="cell lr" id="m-ds-l1"><div class="ci"></div></div>
+      <div class="cell lr" id="m-ds-l2"><div class="ci"></div></div>
+      <div class="cell lr" id="m-ds-l3"><div class="ci"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HIGH SCHOOL  VIII–X
+══════════════════════════════════════════ -->
+<div class="stage-panel" data-stage="high">
+  <div class="legend-bar">
+    <span class="ll">Трудност</span>
+    <div class="li">
+      <div class="ld"><span style="background:#2E7D32"></span>Лесна</div>
+      <div class="ld"><span style="background:#F57F17"></span>Оптимална</div>
+      <div class="ld"><span style="background:#C62828"></span>Трудна</div>
+    </div>
+    <span class="ll" style="margin-left:12px;">Нива</span>
+    <div class="li">
+      <div class="ld"><span style="background:#2D5986"></span>Ниво 1 — Намери</div>
+      <div class="ld"><span style="background:#3D7A5E"></span>Ниво 2 — Анализирай</div>
+      <div class="ld"><span style="background:#8B4A9C"></span>Ниво 3 — Оцени и създай</div>
+    </div>
+  </div>
+  <div class="ctx" data-stage="high">
+    <div class="cxi"><strong>Организиращ принцип</strong><span>5 стила на писане, не типове текст</span></div>
+    <div class="cxi"><strong>Нова категория</strong><span>Продуктивни задачи: резюме, теза, CV</span></div>
+    <div class="cxi"><strong>Обем на текста</strong><span>400–800 думи, до 3 текста в НВО X</span></div>
+    <div class="cxi"><strong>НВО X структура</strong><span>Информационен + Смесен + Художествен текст</span></div>
+    <div class="cxi"><strong>Ниво 3 е доминиращо</strong><span>Тълкуване, теза, аргументация</span></div>
+  </div>
+  <div class="sel">
+    <div class="sll">Изберете функционален стил / формат</div>
+    <div class="ttabs" id="tabs-high">
+      <div class="tg" data-tg="stil"><div class="tgl">Функционален стил</div><div class="ti">
+        <button class="tb2 active" data-type="h-pub" data-group="stil" data-stage="high">Публицистичен</button>
+        <button class="tb2" data-type="h-nau" data-group="stil" data-stage="high">Научен/Официален</button>
+        <button class="tb2" data-type="h-hud" data-group="stil" data-stage="high">Художествен</button>
+      </div></div>
+      <div class="tg" data-tg="smesen"><div class="tgl">Смесен</div><div class="ti">
+        <button class="tb2" data-type="h-sme" data-group="smesen" data-stage="high">Текст + Диаграма</button>
+      </div></div>
+      <div class="tg" data-tg="medien"><div class="tgl">Продуктивни задачи</div><div class="ti">
+        <button class="tb2" data-type="h-prod" data-group="medien" data-stage="high">Резюме / Теза / CV</button>
+      </div></div>
+    </div>
+  </div>
+  <div class="cnote" id="cn-high"></div>
+  <div class="msec">
+    <div class="mgrid cols3" id="m-high">
+      <div class="ch empty"></div>
+      <div class="ch l1"><span class="chn">Н1</span><span class="chnm">Намери в текста</span><span class="chd">Факти, термини, конкретни данни</span></div>
+      <div class="ch l2"><span class="chn">Н2</span><span class="chnm">Анализирай и сравни</span><span class="chd">Сравнява, синтезира, разпознава структура</span></div>
+      <div class="ch l3"><span class="chn">Н3</span><span class="chnm">Оцени и създай</span><span class="chd">Тълкува, формулира теза, пише резюме</span></div>
+      <div class="rh">Примерна задача</div>
+      <div class="cell" id="h-ex-l1"><div class="ci"></div></div>
+      <div class="cell" id="h-ex-l2"><div class="ci"></div></div>
+      <div class="cell" id="h-ex-l3"><div class="ci"></div></div>
+      <div class="rh lr">Как да я проектираш</div>
+      <div class="cell lr" id="h-ds-l1"><div class="ci"></div></div>
+      <div class="cell lr" id="h-ds-l2"><div class="ci"></div></div>
+      <div class="cell lr" id="h-ds-l3"><div class="ci"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="foot">
+  <div>
+    <h4>Защо типът текст не е скала</h4>
+    <p style="font-size:11px;line-height:1.7;">Сложността се определя от три характеристики на конкретния текст — не от категорията му.</p>
+    <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+      <div style="padding:6px 9px;background:var(--bg);border-radius:4px;border-left:2px solid var(--ta);">
+        <span style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ta);">Лексикална плътност</span>
+        <p style="margin-top:2px;font-size:11px;">Съотношението на термини. „Батериите съдържат канцерогенни тежки метали" е по-плътна от „Момчето се прибра". Дори Н1 задача става трудна при непозната лексика.</p>
+      </div>
+      <div style="padding:6px 9px;background:var(--bg);border-radius:4px;border-left:2px solid var(--l2);">
+        <span style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--l2);">Кохезия</span>
+        <p style="margin-top:2px;font-size:11px;">Степента, в която изреченията са явно свързани (защото, следователно, обаче). При ниска кохезия ученикът сам конструира връзките.</p>
+      </div>
+      <div style="padding:6px 9px;background:var(--bg);border-radius:4px;border-left:2px solid var(--l3);">
+        <span style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--l3);">Разстояние от опита на ученика</span>
+        <p style="margin-top:2px;font-size:11px;">Колко далеч е темата от реалния опит на ученика. Проста приказка за непозната историческа реалия може да е по-трудна от технически текст за позната тема.</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h4>Прогресия на форматите</h4>
+    <div class="prog-item"><span class="gb" style="background:var(--ga);">I–IV</span>Худ. + Информационен</div>
+    <div class="prog-item"><span class="gb" style="background:var(--gb);">V</span>+ Непрекъснати типове</div>
+    <div class="prog-item"><span class="gb" style="background:var(--gb);">VI</span>+ Прекъснат + Смесен</div>
+    <div class="prog-item"><span class="gb" style="background:var(--gb);">VII</span>+ Медиен текст</div>
+    <div class="prog-item"><span class="gb" style="background:var(--gc);">VIII–X</span>+ 5 функц. стила + Продуктивни</div>
+    <div style="margin-top:10px;padding:7px 9px;background:var(--bg);border-radius:4px;font-size:11px;">
+      <strong style="display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">Как стъпките се свързват между етапите</strong>
+      <div style="display:flex;gap:6px;align-items:center;font-size:10px;color:var(--ink-soft);">П1 Намери ≈ Н1 · П2 Свържи ≈ Н1/Н2 · П3 Обясни ≈ Н2 · П4 Прецени ≈ Н3</div>
+    </div>
+  </div>
+  <div>
+    <h4>Психометричен коридор</h4>
+    <p style="font-size:11px;line-height:1.7;">Балансиран тест: ~25% лесни, ~55% оптимални, ~15% трудни. Всеки дистрактор трябва да е избран от ≥5% при апробация.</p>
+    <div style="margin-top:8px;padding:7px 9px;background:var(--bg);border-radius:4px;font-size:11px;">
+      <strong style="display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">НВО структура</strong>
+      <div style="margin:2px 0;"><span class="gb" style="background:var(--ga);padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;">IV</span> 25 задачи · 60 мин. · 100 т.</div>
+      <div style="margin:2px 0;"><span class="gb" style="background:var(--gb);padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;">VII</span> 26 задачи · 165 мин. · 100 т.</div>
+      <div style="margin:2px 0;"><span class="gb" style="background:var(--gc);padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;">X</span> 21 задачи · 90 мин. · 100 т.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════
+// DATA
+// ════════════════════════════════════
+const D = {
+
+// ── PRIMARY ──────────────────────────────────────────────────────────
+
+'p-hud': {
+  note: null,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Какво направил гълъбът, когато видял, че мравката се дави?" / „Защо мравката припълзяла до извора?"<br><span class="subj-tag mat">МАТ</span>„Колко ябълки останали в края на задачата?"<br><span class="subj-tag sci">ПРИ</span>„Кое животно е главен герой в описанието?"`,
+    impl:['Питай за конкретен детайл — кой, какво, кога, колко','Отговорът е в едно изречение от текста','Дистракторите: правдоподобни детайли от друга част на текста','Три варианта са достатъчни за I–II кл., четири — за III–IV кл.'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Защо мравката успяла да помогне на гълъба, въпреки че е малка?"<br><span class="subj-tag mat">МАТ</span>„Защо детето в задачата не може да купи и двете неща?"<br><span class="subj-tag sci">ПРИ</span>„Защо хоботът е важен за слона? Посочи две причини."`,
+    impl:['Свързва причина и следствие — двете са на различни места в текста','Задачи с "защо" и "как" са класически П2','Искай "две причини" — стимулира по-задълбочено четене','Дистракторите: верни за отделна част, но не за цялото'],
+    trap:null },
+  l3:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Умно ли е малкото раче? Посочи две причини защо мислиш така."<br><span class="subj-tag mat">МАТ</span>„Справедливо ли е разпределението в задачата? Обясни."<br><span class="subj-tag sci">ПРИ</span>„Какво научаваш за поведението на котките от текста? Направи извод."`,
+    impl:['Ученикът тълкува — отговорът не е директно в текста','Задачи с "какъв е героят" изискват характеристика с доказателство','Задачи с "какъв извод правиш" са класически П3','Приемай перифраза — не изисквай точни думи от текста','Частичен кредит: 2т. за две причини, 1т. за една'],
+    trap:`<strong>Капан:</strong> П3 изглежда субективна — но правилният отговор трябва да е защитим с текстово доказателство. Дефинирай ясен ключ.` },
+  l4:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Щеше ли да подхожда на текста заглавието 'Гълъбът'? Запиши защо мислиш така."<br><span class="subj-tag sci">ПРИ</span>„Какъв баща е старият рак? Посочи две причини."`,
+    impl:['П4 се въвежда постепенно от III клас','Задачи за заглавие, морал или поука са типични П4 форми','Оценяването на герой с аргументация е П4 при художествен текст','Приемай различни позиции (да/не) стига да са добре аргументирани','Само 1–2 П4 задачи на тест в началния етап'],
+    trap:`<strong>Капан:</strong> П4 при I–II клас е прекалено рано — ученикът все още работи с буквалното ниво. Въвеждай внимателно от III клас нагоре.` }
+  },
+
+'p-info': {
+  note: `<strong>Информационният текст</strong> в начален етап включва научно-популярни статии, описания на явления, природни и исторически факти. Лексикалната плътност е основният предиктор за трудност.`,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„За какво служи хоботът на слона? Посочи две неща."<br><span class="subj-tag sci">ПРИ</span>„Какво прави котката, когато се чувства добре?"<br><span class="subj-tag mat">МАТ</span>„Колко са стъпките в описания метод?"`,
+    impl:['Фактите са директно в текста — задачата проверява дали ученикът е прочел внимателно','Задачи с "посочи две неща" са ефективни при информационен текст','Дистракторите: информация от друг абзац на текста'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Защо котката е в стрес, когато се местиш?"<br><span class="subj-tag sci">ПРИ</span>„Защо хоботът е наречен 'проучвателен орган'?"<br><span class="subj-tag mat">МАТ</span>„Довърши таблицата: Действие → Резултат."`,
+    impl:['Задачи с таблица (Действие → Резултат) са силен П2 формат при информационен текст — PIRLS ги препоръчва','Задачи с "какво означава изразът X" при информационен текст са П2/П3','Изискват свързване на причина и следствие от различни части'],
+    trap:null },
+  l3:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Какъв извод правиш за начина да разбираш котките по-добре?"<br><span class="subj-tag sci">ПРИ</span>„Защо е важно да знаем как слонът усеща опасност?"`,
+    impl:['Задачи за "какъв извод правиш" са класически П3 при информационен текст','Ученикът синтезира от целия текст, а не от един абзац','Приемай различни формулировки стига изводът да е адекватен'],
+    trap:null },
+  l4:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Помагат ли първите две изречения да разбереш за какво ще се говори? Обясни."<br><span class="subj-tag sci">ПРИ</span>„Добро ли е заглавието на текста? Защо?"`,
+    impl:['П4 при информационен текст = оценяване на структурата или заглавието','Въвежда се от III–IV клас','Задачи за функцията на уводните изречения са типичен П4 формат'],
+    trap:`<strong>Капан:</strong> П4 при информационен текст изисква метапознание за структурата на текста — умение, което се изгражда постепенно.` }
+  },
+
+'p-instr': {
+  note: `<strong>Инструкции и правила</strong> в начален етап: рецепти, правила на игра, стъпки за изпълнение. Изключително приложимо в математика и природни науки.`,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Коя е първата стъпка?"<br><span class="subj-tag mat">МАТ</span>„Колко пъти трябва да повториш действието?"<br><span class="subj-tag sci">ПРИ</span>„Какво НЕ трябва да правиш според правилата?"`,
+    impl:['Задачи за последователност на стъпки са класически П1 при инструкция','Задачи с "НЕ трябва" изискват четене на целия текст','Формат: три варианта са достатъчни'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Защо трябва да изпълниш стъпките в точния ред?"<br><span class="subj-tag mat">МАТ</span>„Кога правилото важи само за едно нещо, а кога — за всички?"`,
+    impl:['Свързване на правило с последствие от неспазването му','Задачи за условия (кога важи/не важи) са силен П2 при инструкция'],
+    trap:null },
+  l3:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Ако нямаш третата съставка, ще успееш ли? Обясни."<br><span class="subj-tag mat">МАТ</span>„Приложи правилото към новия пример."`,
+    impl:['П3 при инструкция = прилагане на правило в нова ситуация','Много подходящо за математика и природни науки — "приложи стъпките към новия пример"'],
+    trap:null },
+  l4:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Ясна ли е инструкцията? Кое би добавил/а?"`,
+    impl:['П4 при инструкция = оценяване на яснотата или пълнотата','Рядко се ползва в началния етап — предимно IV клас'],
+    trap:null }
+  },
+
+// ── MIDDLE ────────────────────────────────────────────────────────────
+
+'m-nar': {
+  note: null,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Защо косачите идват в Тракия?" / „От коя страна произхожда родът?"<br><span class="subj-tag hist">ИСТ</span>„Кога се случва събитието според текста?"`,
+    impl:['Информацията е в едно или две изречения','Дистракторите: детайли за друг герой или момент','Избягвай задачи с много имена и дати — контаминация'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Защо чантата 'сякаш' тежи повече?" / „Каква е основната идея?"<br><span class="subj-tag hist">ИСТ</span>„Каква е причината за описаното събитие?"`,
+    impl:['Свързва поне две части от текста','Задачи за "за какво е текстът" са Н2, не Н1','Дистракторите: верни за абзац, не за цялото'],
+    trap:null },
+  l3:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Каква роля изпълнява образът на брезата?" / „С какво значение се употребява 'сизифовски труд'?"`,
+    impl:['Художествена функция, символ, авторска позиция','При свободен отговор: предвиди частичен кредит','Ключът трябва да включва примерни отговори'],
+    trap:`<strong>Капан:</strong> Н3 при нарация е устойчиво труден — под 40% верни е нормално.` }
+  },
+
+'m-izl': {
+  note: `<strong>Изложението</strong> представя информация структурирано. Лексикалната плътност е основният предиктор за трудност.`,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Колко думи/минута чете нормалният читател?"<br><span class="subj-tag sci">ПРИ</span>„Каква е препоръката на СЗО за екранното време?"<br><span class="subj-tag mat">МАТ</span>„Каква е стойността на X според текста?"`,
+    impl:['Числа, имена и конкретни факти — класически Н1','Дистракторите: близки стойности от текста'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„За какво е тази статия?" / „Как се прочита текстът по-бързо?"<br><span class="subj-tag sci">ПРИ</span>„Каква е разликата между X и Y според текста?"`,
+    impl:['"За какво е" ≠ "какво е казано" — втората е Н1','Задачи за сравнение са силен Н2'],
+    trap:null },
+  l3:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Може ли да се направи извод, че X е вредна?"<br><span class="subj-tag sci">ПРИ</span>„Каква е целта на текста — да информира или да убеди?"`,
+    impl:['"Може ли да се направи извод" е правилният Н3 формат','Отговорът е защитим с цитат от текста'],
+    trap:`<strong>Капан:</strong> Не конструирай Н3 задачи, на които може да се отговори без текста.` }
+  },
+
+'m-arg': {
+  note: `<strong>Аргументацията</strong> е устойчиво по-трудна — изисква разпознаване на реторична структура (теза → довод → контрадовод).`,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Коя храна НЕ е спомената като вредна?"<br><span class="subj-tag sci">ПРИ</span>„Кое НЕ е аргумент в полза на X според текста?"`,
+    impl:['Задачи с "НЕ е аргумент" са класически Н1 при аргументация','Дистракторите: твърдения от контрааргумента в текста'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Какво е общото между X и Y?" / „Как влияят социалните мрежи на мозъка?"`,
+    impl:['Задачи за причинно-следствена верига','Съотнасянето (matching) е подходящ формат при аргументация'],
+    trap:null },
+  l3:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Каква е целта на текста?" / „Каква е позицията на автора?"<br><span class="subj-tag sci">ПРИ</span>„Убедителни ли са аргументите? Защо?"`,
+    impl:['Задачи за авторска позиция работят добре при аргументация','Задължително: "според текста" в условието'],
+    trap:`<strong>Капан:</strong> Учениците отговарят с лично мнение вместо с текстови данни. "Според текста" е задължително.` }
+  },
+
+'m-ins': {
+  note: null,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое действие е забранено?" / „Какви билети може да купи от водача?"<br><span class="subj-tag mat">МАТ</span>„Коя стъпка е първа в алгоритъма?"`,
+    impl:['При инструкция информацията е структурирана — намирането е лесно','Задачи "Кое е забранено/разрешено" са класически Н1'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„За какво е текстът?" / „Каква е целта на правилника?"`,
+    impl:['"Каква е целта" е Н2, не Н1','Дистракторите: верни за един раздел, не за целия'],
+    trap:null },
+  l3:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„В какъв случай има смисъл да купиш двукратен билет?"<br><span class="subj-tag mat">МАТ</span>„Приложи правилото към новия случай."`,
+    impl:['Н3 при инструкция = прилагане на правило в нова ситуация','Конкретен сценарий с персона е класическият формат'],
+    trap:null }
+  },
+
+'m-prk': {
+  note: `<strong>Прекъснатият текст</strong> изисква нелинейно четене. Системно по-ниски резултати — дори при Н1.`,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кой е най-предпочитаният спорт?"<br><span class="subj-tag mat">МАТ</span>„Каква е стойността в клетка X?"<br><span class="subj-tag sci">ПРИ</span>„Кой е най-висок/нисък резултат на диаграмата?"`,
+    impl:['Насочвай ученика точно към реда/колоната','Дистракторите: стойности от съседни редове/колони'],
+    trap:null },
+  l2:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Отборите на коя страна са печелили и при мъжете, и при жените?"<br><span class="subj-tag mat">МАТ</span>„Коя категория показва най-голям ръст между двата периода?"`,
+    impl:['Изисква четене на множество полета и синтез','Задачи с "и двете" изискват сравнение между редове/колони'],
+    trap:`<strong>Капан:</strong> Не прекалявай с изчислителни задачи — тестваш четене, не смятане.` },
+  l3:{ diff:null, ex:null, impl:null, unavailable:true, naText:'Н3 рядко се прилага при изолиран прекъснат текст — липсва реторичен контекст.' }
+  },
+
+'m-sme': {
+  note: `<strong>Смесеният текст</strong> е когнитивно най-взискателен — интегрира проза и таблица с различна логика.`,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое е вярно само според текста?"<br><span class="subj-tag mat">МАТ</span>„Каква е стойността в таблицата за X?"`,
+    impl:['Разграничавай: задачата сочи към прозата ИЛИ таблицата — не двете (това е Н2)'],
+    trap:null },
+  l2:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое твърдение от текста се потвърждава от таблицата?"<br><span class="subj-tag sci">ПРИ</span>„Съответства ли графиката на описаното в текста?"`,
+    impl:['Задачи, изискващи интегриране на текст И таблица = класически Н2','Предвиди частичен кредит при свободен отговор'],
+    trap:null },
+  l3:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Ако семейство с X членове посети градината — колко плащат?"<br><span class="subj-tag mat">МАТ</span>„Приложи правилото от текста към данните от таблицата."`,
+    impl:['Прилагане на правило от прозата към сценарий с данни от таблицата','Задължителен свободен отговор с ясен ключ','Частичен кредит за частично правилно прилагане'],
+    trap:`<strong>Капан:</strong> Не повече от 1–2 Н3 задачи при смесен текст — максимално когнитивно натоварване.` }
+  },
+
+'m-med': {
+  note: `<strong>Медийният текст</strong> (репортаж, интервю) е нов за VII клас. Предава чужда реч, цитира, има медийна цел.`,
+  l1:{ diff:['easy','medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Текстът е: А) разговорен Б) научен В) медиен Г) художествен"<br><span class="subj-tag">БЕЛ</span>„Кое НЕ е практика за ограничаване на телефоните?"`,
+    impl:['Разпознаване на вида текст е специфичен Н1 за VII клас','Дистракторите: другите видове текст'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое е вярното твърдение — текстът допълва или противоречи на анкетата?"`,
+    impl:['Интегриране на медиен текст с данни е силен Н2','Разграничаване на факт от мнение в медиен текст'],
+    trap:null },
+  l3:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Каква е целта на текста? Подкрепете с доказателства."`,
+    impl:['Медийна цел = Н3 при медиен текст','Разграничавай "тема" (Н2) от "цел" (Н3)'],
+    trap:`<strong>Капан:</strong> При медиен текст "целта" изглежда очевидна — но НВО изисква доказателство от конкретни места в текста.` }
+  },
+
+// ── HIGH SCHOOL ───────────────────────────────────────────────────────
+
+'h-pub': {
+  note: `<strong>Публицистичният стил</strong> е доминиращ в НВО X. Характеристики: аргументативна структура, цитирана чужда реч, авторска позиция, ориентиран към обществена тема.`,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Текстът принадлежи към: А) художествен Б) научен В) публицистичен стил"<br>„Кое НЕ е последица от кибертормоза според текста?"`,
+    impl:['Разпознаване на стила е специфичен Н1 за гимназията','Задачи с "НЕ е последица/аргумент" са ефективни при публицистичен текст','Дистракторите: смесват факти и мнения от текста'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое твърдение е вярно според текста?" / „Каква е позицията на автора по темата?"<br>„Сравни двата текста — в какво се съгласяват?"`,
+    impl:['При НВО X: сравнение между два текста е силен Н2','Разграничаване на факт от интерпретация в публицистичен текст','Задачи за структура на аргумента (теза → довод → пример)'],
+    trap:null },
+  l3:{ diff:['medium','hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Убедителни ли са аргументите? Обосновай позиция."<br>„Предай в резюме съдържанието на текста."`,
+    impl:['Н3 при публицистика = оценяване на аргументацията или създаване на резюме','Резюмето е продуктивна задача — изисква синтез и перифраза, не цитиране','При НВО X: резюмето носи 16 точки — висока тежест, нужна рубрика'],
+    trap:`<strong>Капан:</strong> Резюмето не е преразказ и не е списък от точки. Ученикът трябва да преформулира основните идеи в свързан текст.` }
+  },
+
+'h-nau': {
+  note: `<strong>Научен и официално-делови стил</strong> в гимназията. Нови формати: заявление, CV, официално писмо.`,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„С какво значение е употребена думата 'лимит' в изречението?"<br>„Кой е научният термин за X в текста?"`,
+    impl:['Лексикален Н1 е характерен за гимназията — значение на термин в контекст','Задачи за стилистично разграничаване: кое е неутрална vs. експресивна лексика'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое твърдение от диаграмата се потвърждава в текста?"<br>„Каква е основната функция на официално-деловия текст?"`,
+    impl:['При научен текст: задачи за дефиниция и приложение на понятие','При официален текст: задачи за структура (встъпление, изложение, заключение)'],
+    trap:null },
+  l3:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Напишете заявление/CV по зададени параметри."<br>„Предайте в резюме научния текст."`,
+    impl:['Продуктивните задачи за гимназия: заявление, CV, резюме на научен текст','Ключът трябва да е рубрика с критерии — не само примерен отговор','При НВО X: задачата за създаване носи до 16 точки'],
+    trap:`<strong>Капан:</strong> Заявлението и CV имат строга структура — оценявай спазването на формàта отделно от езиковата правилност.` }
+  },
+
+'h-hud': {
+  note: `<strong>Художественият текст</strong> в гимназията включва поезия, разказ, откъс от роман. Н3 е доминиращо — интерпретация на образ, мотив, авторска позиция.`,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Стихотворението може да бъде определено като: А) ода Б) балада В) елегия Г) сатира"<br>„За кой герой се отнасят думите X?"`,
+    impl:['Разпознаване на жанр е специфичен Н1 за гимназията','Задачи за герой/позиция в текст са Н1 при художествен'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Коя опозиция НЕ участва в изграждането на смисъла?"<br>„Кое тълкуване съответства на смисъла на строфата?"`,
+    impl:['Задачи за опозиционни двойки и структурни елементи = Н2 при художествен текст','Задачи за тълкуване на строфа изискват контекст от цялото произведение'],
+    trap:null },
+  l3:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Обяснете как е представен животът в робство и как го възприема странникът."<br>„Запишете значението на метафората 'род да въдиш' за смисъла на творбата."`,
+    impl:['Разширен свободен отговор е стандартният Н3 формат при художествен текст в гимназия','Рубриката трябва да включва примерни отговори и скалиране (0/2/4/6/8 точки)','При НВО X: тези задачи носят 6–8 точки — висока тежест'],
+    trap:`<strong>Капан:</strong> При поетически текст Н3 задачите изискват разбиране на целия контекст. Не изолирай строфата без останалото.` }
+  },
+
+'h-sme': {
+  note: `При НВО X: Текст 2 е смесен (публицистичен текст + стълбовидна диаграма). Задачите изискват интегриране на двата носителя.`,
+  l1:{ diff:['easy'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Каква е стойността X според диаграмата?"<br>„Кое твърдение е само в текста (не в диаграмата)?"`,
+    impl:['Разграничавай: задачата сочи към текста ИЛИ диаграмата','При диаграма: задачи за отчитане на стойност са Н1'],
+    trap:null },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Кое твърдение от диаграмата се потвърждава в текста?"<br>„В кое твърдение текстът и диаграмата се разминават?"`,
+    impl:['Интегриране на текст И диаграма = класически Н2 при смесен','Задачи за потвърждаване/противоречие между двата носителя са характерни за НВО X'],
+    trap:null },
+  l3:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Коя от ползите в диаграмата развива и културния хоризонт? Обосновайте."`,
+    impl:['Н3 при смесен в гимназия = синтез от двата носителя + аргументиран извод','При НВО X: свободен отговор носи 4 точки'],
+    trap:null }
+  },
+
+'h-prod': {
+  note: `<strong>Продуктивните задачи</strong> са специфични за гимназиалния етап. Изискват не само четене, но и създаване на нов текст въз основа на прочетеното.`,
+  l1:{ diff:null, ex:null, impl:null, unavailable:true, naText:'Продуктивните задачи нямат Н1 — те са изцяло Н2 и Н3 (синтез и създаване).' },
+  l2:{ diff:['medium'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Посочете аргументи в полза на тезата X."<br>„Коя е основната идея, която резюмето трябва да предаде?"`,
+    impl:['Предварителен анализ преди продуктивната задача = Н2','Задачи за идентифициране на теза, аргументи и примери в текста'],
+    trap:null },
+  l3:{ diff:['hard'],
+    ex:`<span class="subj-tag">БЕЛ</span>„Формулирайте и запишете теза на тема 'Да имаш или да бъдеш'."<br>„Предайте в резюме съдържанието на текста (100–150 думи)."<br>„Напишете заявление/CV по зададени параметри."`,
+    impl:['Тезата изисква формулировка на позиция + готовност за аргументация','Резюмето: синтез на основни идеи в свой текст — не цитати, не изброяване','CV и заявление: строга структура, оценявай форма отделно от съдържание','Рубриката трябва да е многокритериална: съдържание / структура / език / обем'],
+    trap:`<strong>Капан:</strong> Продуктивните задачи при НВО X носят 14–16 точки — почти 15% от теста. Учениците не ги тренират достатъчно, защото изглеждат "субективни".` }
+  }
+
+};
+
+// ════════════════════════════════════
+// RENDER ENGINE
+// ════════════════════════════════════
+const levels = { primary:['l1','l2','l3','l4'], middle:['l1','l2','l3'], high:['l1','l2','l3'] };
+const prefix = { primary:'p', middle:'m', high:'h' };
+
+function renderType(stage, type) {
+  const lvls = levels[stage];
+  const p = prefix[stage];
+  const d = D[type];
+  if (!d) return;
+
+  lvls.forEach(l => {
+    const exEl = document.getElementById(`${p}-ex-${l}`);
+    const dsEl = document.getElementById(`${p}-ds-${l}`);
+    if (!exEl || !dsEl) return;
+
+    const cd = d[l];
+    if (!cd) return;
+
+    exEl.classList.remove('na'); dsEl.classList.remove('na');
+
+    if (cd.unavailable) {
+      exEl.innerHTML = `<div class="ci on" style="display:flex;align-items:center;justify-content:center;min-height:70px;"><span class="nal">${cd.naText}</span></div>`;
+      dsEl.innerHTML = `<div class="ci on"></div>`;
+      exEl.classList.add('na'); dsEl.classList.add('na');
+      return;
+    }
+
+    const badges = (cd.diff||[]).map(d2=>({easy:'Лесна',medium:'Оптимална',hard:'Трудна'})[d2]).map(lb=>`<span class="badge ${lb==='Лесна'?'easy':lb==='Оптимална'?'medium':'hard'}">${lb}</span>`).join('');
+    exEl.innerHTML = `<div class="ci on"><div class="dbr">${badges}</div><div class="exq">${cd.ex}</div></div>`;
+
+    const items = (cd.impl||[]).map(i=>`<li>${i}</li>`).join('');
+    const trap = cd.trap?`<div class="trap">${cd.trap}</div>`:'';
+    const prod = cd.prodNote?`<div class="prod-note">${cd.prodNote}</div>`:'';
+    dsEl.innerHTML = `<div class="ci on"><button class="itog" onclick="tog(this)"><span class="arr">▶</span> Как да проектираш тази задача</button><div class="ibody"><ul>${items}</ul>${trap}${prod}</div></div>`;
+  });
+
+  const cn = document.getElementById(`cn-${stage}`);
+  if (d.note){cn.innerHTML=d.note;cn.classList.add('vis');}
+  else cn.classList.remove('vis');
+}
+
+function tog(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open');}
+
+// Stage tabs
+document.querySelectorAll('.stage-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.stage-tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.stage-panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelector(`.stage-panel[data-stage="${t.dataset.stage}"]`).classList.add('active');
+  });
+});
+
+// Type tabs
+document.querySelectorAll('.tb2:not(.dis)').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const stage = btn.dataset.stage;
+    document.querySelectorAll(`#tabs-${stage} .tb2:not(.dis)`).forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderType(stage, btn.dataset.type);
+  });
+});
+
+// Initial renders
+renderType('primary','p-hud');
+renderType('middle','m-nar');
+renderType('high','h-pub');
+</script>
+</body>
+</html>
