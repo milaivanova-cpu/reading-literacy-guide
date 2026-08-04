@@ -105,6 +105,41 @@ header h1 em{color:var(--accent);font-style:italic}
  .question-map{grid-template-columns:1fr 1fr}.process-grid{grid-template-columns:1fr}.footer{grid-template-columns:1fr}
 }
 @media(max-width:560px){.question-map{grid-template-columns:1fr}.stage-bar{overflow:auto}.stage-tab{padding:11px 13px}}
+
+/* MOTIVATION & READER CONFIDENCE LAYER */
+.motivation-band{margin:14px 48px 0;border:1px solid #D7B889;border-left:5px solid #B7791F;background:#FFF9EE;border-radius:10px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 15px}
+.motivation-band strong{display:block;font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:#7A4A1E}
+.motivation-band span{display:block;font-size:11px;color:var(--soft);margin-top:2px}
+.motivation-open{border:1px solid #D7B889;background:#fff;color:#7A4A1E;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer}
+.motivation-open:hover,.motivation-open.active{background:#F7E8CA}
+.motivation-intro{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-bottom:14px}
+.motivation-principle{background:#FFF9EE;border:1px solid #E2C79C;border-radius:10px;padding:14px 15px}
+.motivation-principle h3{margin:0 0 5px;font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:#7A4A1E}
+.motivation-principle p{margin:0;color:var(--soft);font-size:12px}
+.motivation-filter{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 14px}
+.motivation-filter button{border:1px solid var(--rule);background:#fff;border-radius:20px;padding:6px 10px;cursor:pointer;color:var(--soft);font-size:11px;font-weight:700}
+.motivation-filter button.active,.motivation-filter button:hover{background:#7A4A1E;color:#fff;border-color:#7A4A1E}
+.motivation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.motivation-card{border:1px solid var(--rule);background:#fff;border-radius:10px;overflow:hidden}
+.motivation-summary{width:100%;border:0;background:transparent;padding:12px 13px;display:grid;grid-template-columns:1fr auto;gap:10px;text-align:left;cursor:pointer}
+.motivation-summary:hover{background:#FFF9EE}
+.motivation-summary strong{display:block;font-size:13px}
+.motivation-summary small{display:block;margin-top:3px;color:var(--soft);font-size:10px}
+.motivation-card.open .motivation-arrow{transform:rotate(90deg)}
+.motivation-arrow{color:#7A4A1E;font-weight:700;transition:transform .2s}
+.motivation-detail{display:none;border-top:1px solid var(--rule);padding:12px 13px;background:#FCFBF9}
+.motivation-card.open .motivation-detail{display:block}
+.motivation-detail h5{margin:10px 0 3px;text-transform:uppercase;letter-spacing:.06em;font-size:9px;color:#7A4A1E}
+.motivation-detail h5:first-child{margin-top:0}
+.motivation-detail p,.motivation-detail li{font-size:11px;color:var(--soft)}
+.motivation-detail p{margin:0}
+.motivation-detail ol{margin:4px 0 0;padding-left:18px}
+.teacher-line{margin-top:9px;padding:8px 10px;background:#FFF4DE;border-left:3px solid #B7791F;border-radius:0 6px 6px 0;font-family:'DM Serif Display',serif;font-style:italic;font-size:12px}
+.avoid-line{margin-top:8px;padding:7px 9px;background:#FFF0ED;border-radius:6px;font-size:10px;color:#8B3A2A}
+.framework-links{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.framework-links span{display:inline-block;padding:2px 7px;border-radius:20px;background:#EEEAE3;font-size:9px;font-weight:700;color:var(--soft)}
+@media(max-width:900px){.motivation-band{margin-left:16px;margin-right:16px}.motivation-intro,.motivation-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -119,6 +154,11 @@ header h1 em{color:var(--accent);font-style:italic}
   <button class="qstep" data-view="how"><small>3 · Процес</small><strong>Как чета?</strong><span>Как разбирам и управлявам четенето си?</span></button>
   <button class="qstep" data-view="so-what"><small>4 · Трансфер</small><strong>И какво от това?</strong><span>Как използвам и показвам разбраното?</span></button>
 </nav>
+
+<div class="motivation-band">
+  <div><strong>Желание и увереност за четене</strong><span>Напречен слой: смисъл, избор, преживяване на успех, настойчивост, читателска идентичност и социално четене.</span></div>
+  <button class="motivation-open" type="button" data-open-motivation>Разгледай стратегиите</button>
+</div>
 
 <div class="stage-bar">
   <button class="stage-tab active" data-stage="primary">Начален етап <small>I–IV клас</small></button>
@@ -160,6 +200,21 @@ header h1 em{color:var(--accent);font-style:italic}
   <div class="outcome-grid" id="outcome-grid"></div>
   <div class="callout"><strong>Важно:</strong> резюме, теза, препоръка или CV не са отделен „процес на четене“. Те са продукти, които стъпват върху няколко процеса едновременно.</div>
 </section>
+
+<section class="panel" data-view-panel="motivation">
+  <div class="intro-card">
+    <h2>Как създаваме желание и увереност за четене?</h2>
+    <p>Тези стратегии не заменят стратегиите за разбиране. Те помагат на ученика да поиска да започне, да повярва, че може да се справи, да продължи при трудност и да вижда себе си като читател.</p>
+  </div>
+  <div class="motivation-intro">
+    <article class="motivation-principle"><h3>Учебна цел</h3><p>За какво ще използвам информацията и какъв реален въпрос ще разреша чрез четенето?</p></article>
+    <article class="motivation-principle"><h3>Лична мотивация</h3><p>Защо си струва за мен да положа усилие и какъв избор, успех или принос мога да преживея?</p></article>
+  </div>
+  <div class="control-label">Филтрирай по мотивационна потребност</div>
+  <div class="motivation-filter" id="motivation-filter"></div>
+  <div class="motivation-grid" id="motivation-grid"></div>
+</section>
+
 </main>
 
 <div class="footer">
@@ -710,6 +765,64 @@ const STRATEGIES = {
   }
 };
 
+
+const MOTIVATION_CATEGORIES = [
+  ['all','Всички'],['meaning','Смисъл'],['choice','Избор'],['confidence','Увереност'],['persistence','Настойчивост'],['identity','Идентичност'],['social','Социално четене']
+];
+
+const MOTIVATION_STRATEGIES = [
+  {category:'meaning',title:'Защо това може да ми е важно?',barrier:'Ученикът не вижда смисъл да чете текста.',links:['Защо чета?','И какво от това?'],essence:'Текстът се свързва с реален въпрос, избор, проблем или преживяване, преди да започне четенето.',steps:['Формулирайте автентичен въпрос или проблем.','Покажете как текстът ще помогне за отговор или решение.','Съберете първоначални предположения.','След четенето върнете класа към въпроса.'],adapt:{primary:'Използвайте близка ситуация и конкретен избор.',middle:'Свържете текста с проблем от училището или общността.',high:'Поставете обществен, етичен или професионален казус.'},teacher:'Ще прочетем текста, за да решим какво бихме направили в тази ситуация.',avoid:'Да се обявява „това ще ви трябва в живота“, без реална връзка с последващата задача.'},
+  {category:'meaning',title:'Въпрос, който си струва да изследваме',barrier:'Четенето започва като формално упражнение, а не като търсене.',links:['Защо чета?','Какво чета?'],essence:'Текстът се въвежда чрез любопитен, спорен или практически въпрос, на който не може да се отговори само с предположение.',steps:['Изберете въпрос с повече от очевиден отговор.','Позволете кратки първоначални позиции.','Четете за доказателства.','Сравнете първоначалните и финалните позиции.'],adapt:{primary:'Използвайте конкретен въпрос за герой, животно или явление.',middle:'Включете дилема или две възможни обяснения.',high:'Използвайте спорен въпрос и множество източници.'},teacher:'Какво мислите сега — и какво ще трябва да проверим в текста?',avoid:'Въпросът да може да бъде отговорен без четене или да има само декоративна функция.'},
+  {category:'meaning',title:'Връзка с моя свят',barrier:'Текстът изглежда далечен и чужд на опита на ученика.',links:['Защо чета?','И какво от това?'],essence:'Ученикът избира връзка с личен опит, общността, друг предмет, актуален проблем или друг текст и после я проверява спрямо прочетеното.',steps:['Предложете няколко вида връзка.','Ученикът избира една.','Открива място в текста, което я подкрепя или усложнява.','Формулира как текстът е променил първоначалната му идея.'],adapt:{primary:'Работете устно и с рисунка или кратък пример.',middle:'Изисквайте текстова опора към личната връзка.',high:'Търсете как текстът потвърждава, усложнява или оспорва опита.'},teacher:'Кое в текста прилича на нещо, което познаваш — и кое е различно?',avoid:'Личната история да замени анализа на текста.'},
+  {category:'choice',title:'Избери какво да прочетеш',barrier:'Ученикът няма усещане за контрол и текстът не съвпада с интересите или достъпното му ниво.',links:['Какво чета?','Защо чета?'],essence:'Учениците избират между ограничен брой качествени текстове, които водят към една и съща учебна цел.',steps:['Подгответе 2–4 текста с обща цел.','Покажете кратко тема, формат и очаквана трудност.','Позволете избор с кратка обосновка.','Използвайте общи критерии за резултата.'],adapt:{primary:'Избор между два кратки текста или жанра.',middle:'Избор по тема, формат или гледна точка.',high:'Избор на източници с различна позиция или сложност.'},teacher:'Избери текста, който най-много ще ти помогне да отговориш на общия въпрос.',avoid:'Неограничен избор без подкрепа или текстове с несравнима учебна стойност.'},
+  {category:'choice',title:'Избери как да покажеш разбирането си',barrier:'Единственият формат на отговор пречи на ученика да покаже реалното си разбиране.',links:['И какво от това?'],essence:'Критериите са общи, но формата на продукта може да варира: писмен отговор, схема, аудио, комикс, препоръка или минипрезентация.',steps:['Определете еднакви критерии за съдържанието.','Предложете 2–4 формата.','Ученикът избира и планира продукта.','Проверете дали форматът показва нужните доказателства.'],adapt:{primary:'Рисунка, устно обяснение или кратък текст.',middle:'Схема, аудио, сравнение или препоръка.',high:'Аналитичен текст, презентация, подкаст или публична препоръка.'},teacher:'Избери формата, в която най-ясно можеш да покажеш извода и доказателствата си.',avoid:'Различните формати да водят до различни или по-ниски очаквания.'},
+  {category:'choice',title:'Лична читателска цел',barrier:'Ученикът чете пасивно и не знае какво конкретно да подобри.',links:['Как чета?'],essence:'Преди четене ученикът избира малка, наблюдаема цел за стратегия или поведение.',steps:['Предложете меню от конкретни цели.','Ученикът избира една.','Отбелязва кога я прилага.','След четене проверява изпълнението и следващата стъпка.'],adapt:{primary:'Една проста цел с визуална опора.',middle:'Самостоятелен избор от 3–5 цели.',high:'Цел, свързана с доказателства, надеждност или синтез.'},teacher:'Кое едно нещо ще направиш по-съзнателно, докато четеш?',avoid:'Общи цели като „ще чета по-добре“ без наблюдаем критерий.'},
+  {category:'confidence',title:'Първа успешна стъпка',barrier:'Текстът изглежда прекалено труден и ученикът очаква провал.',links:['Как чета?','Какво чета?'],essence:'Работата започва с кратка, достъпна и смислово свързана задача, която подготвя по-сложната.',steps:['Изберете достъпен вход към текста.','Осигурете бърз успех с реална стойност.','Използвайте намереното като основа за следваща стъпка.','Покажете прогресията от Намери към Прецени.'],adapt:{primary:'Намиране на герой, действие или ключов факт.',middle:'Намиране на доказателство, което после се свързва с извод.',high:'Разпознаване на теза или ключови данни преди оценяване.'},teacher:'Първо намерете едно нещо, което знаете със сигурност. После ще построим извода върху него.',avoid:'Началната задача да е несвързана или снизходително лесна.'},
+  {category:'confidence',title:'Виж как вече можеш',barrier:'Напредъкът остава невидим и ученикът се сравнява само с другите.',links:['Как чета?','И какво от това?'],essence:'Ученикът сравнява свой първи и втори опит, стар и нов текст или отговор преди и след използване на стратегия.',steps:['Запазете първоначалния опит.','Дайте стратегия или обратна връзка.','Позволете ревизия.','Назовете конкретната промяна и как е постигната.'],adapt:{primary:'Сравнение на два кратки отговора или преразказа.',middle:'Сравнение на извод преди и след доказателство.',high:'Сравнение на първоначален и ревизиран анализ или синтез.'},teacher:'Какво сега можеш да направиш, което преди ти беше трудно?',avoid:'Обща похвала без доказателство за конкретен напредък.'},
+  {category:'confidence',title:'Доказателство за напредък',barrier:'Ученикът има стабилна представа „не съм читател“ въпреки реални малки успехи.',links:['Как чета?','И какво от това?'],essence:'Събира се малко портфолио от успешни четивни действия, стратегии и продукти.',steps:['Изберете 3–5 вида доказателства.','Ученикът периодично добавя пример.','Записва какво му е помогнало.','Преглежда портфолиото и избира следваща цел.'],adapt:{primary:'Кратки визуални и устни примери.',middle:'Изводи, цитати и стратегии за справяне.',high:'Синтези, оценки на източници и сложни текстови продукти.'},teacher:'Кой твой пример показва най-добре как си напреднал като читател?',avoid:'Портфолиото да стане само колекция от оценки или най-красиви продукти.'},
+  {category:'confidence',title:'Похвала за процеса',barrier:'Ученикът не разбира кое действие е довело до успех и възприема умението като фиксирана черта.',links:['Как чета?'],essence:'Обратната връзка назовава използваната стратегия, усилието и резултата, а не етикетира ученика.',steps:['Опишете наблюдаваното действие.','Свържете го с резултата.','Посочете как може да бъде повторено.','Добавете една конкретна следваща стъпка.'],adapt:{primary:'Кратка конкретна реплика веднага след действието.',middle:'Обратна връзка към стратегия и доказателство.',high:'Обратна връзка към избор на източник, аргумент или ревизия.'},teacher:'Когато препрочете и свърза изреченията, изводът ти стана по-точен.',avoid:'Етикети като „роден читател“, „умен“ или празно „браво“.'},
+  {category:'persistence',title:'Какво правя, когато не разбирам?',barrier:'Ученикът приема неразбирането като знак, че не може, и се отказва.',links:['Как чета?'],essence:'Класът използва видимо меню от действия за възстановяване на разбирането.',steps:['Спри и назови какво не е ясно.','Препрочети изречението и контекста.','Раздели сложната част.','Използвай заглавие, изображение или таблица.','Потърси ключова връзка или поискай целева помощ.'],adapt:{primary:'Меню с икони и 3–4 действия.',middle:'Самостоятелен избор и обяснение коя стратегия е използвана.',high:'Диагностика на проблема: лексика, логика, източник, структура или предварителни знания.'},teacher:'Не „мога или не мога“, а „кой ход още не съм опитал?“',avoid:'Учителят веднага да обяснява текста вместо ученика.'},
+  {category:'persistence',title:'Трудно, но постижимо',barrier:'Нормалното усилие се интерпретира като личен дефицит.',links:['Какво чета?','Как чета?'],essence:'Учителят предварително назовава очакваната трудност, обяснява защо е трудна и показва как ще бъде управлявана.',steps:['Посочете конкретната трудност.','Нормализирайте нуждата от повече от един прочит.','Разделете работата на части.','Покажете каква подкрепа е налична.'],adapt:{primary:'Назовете непознати думи или дълъг абзац.',middle:'Назовете смесен формат или неявна връзка.',high:'Назовете конфликт между източници, плътна аргументация или специализиран език.'},teacher:'Не очаквам да разберете всичко от първия прочит; ще го разглобим на части.',avoid:'Да се снижат очакванията или текстът да се представи като почти невъзможен.'},
+  {category:'persistence',title:'Помощ на стъпки',barrier:'Прекалено ранната или прекалено голяма помощ отнема усещането за компетентност.',links:['Как чета?'],essence:'Подкрепата се дава от най-малката към по-силната: стратегия, въпрос, място в текста, частично моделиране, пример.',steps:['Изчакайте кратко самостоятелно усилие.','Дайте подсказка за стратегия.','Задайте насочващ въпрос.','Посочете релевантна част.','Моделирайте само необходимата стъпка.'],adapt:{primary:'Визуални подсказки и избор между два хода.',middle:'Въпрос и насочване към абзац.',high:'Подсказка за аналитична процедура или проверка на източник.'},teacher:'Коя стратегия от менюто би ти помогнала първо?',avoid:'Да се даде готовият отговор или еднаква помощ на всички.'},
+  {category:'persistence',title:'Втори опит след обратна връзка',barrier:'Грешката се преживява като окончателна присъда, а не като информация.',links:['Как чета?','И какво от това?'],essence:'Ученикът ревизира отговор, извод, цитат или продукт след конкретна обратна връзка.',steps:['Дайте обратна връзка към един критерий.','Позволете целева ревизия.','Сравнете двете версии.','Назовете какво се е подобрило и какво следва.'],adapt:{primary:'Добавяне на липсващ детайл или подреждане.',middle:'Добавяне или смяна на доказателство.',high:'Ревизия на теза, синтез или оценка на надеждност.'},teacher:'Кое едно нещо ще промениш, за да стане отговорът по-ясен или по-добре подкрепен?',avoid:'Ревизията да означава просто преписване на учителски отговор.'},
+  {category:'identity',title:'Аз като читател',barrier:'Ученикът се определя еднозначно като „нечетящ“ или „слаб читател“.',links:['Защо чета?','Как чета?'],essence:'Кратки периодични рефлексии изграждат по-точна и развиваща се представа за интереси, трудности и полезни стратегии.',steps:['Попитайте какви текстове привличат ученика.','Открийте кога му е по-лесно да се съсредоточи.','Назовете какво го кара да се отказва.','Изберете стратегия и следваща читателска цел.'],adapt:{primary:'Използвайте картинки и кратки изречения.',middle:'Читателски профил с интереси и стратегии.',high:'Рефлексия върху цели, жанрове, критично четене и академични нужди.'},teacher:'Кога се чувстваш най-силен като читател и какво ти помага тогава?',avoid:'Фиксирани етикети и публично класифициране на учениците.'},
+  {category:'identity',title:'Препоръчай текст на конкретен човек',barrier:'Четенето няма социален смисъл и ученикът не вижда стойността на собствения си читателски избор.',links:['И какво от това?','Защо чета?'],essence:'Ученикът препоръчва текст на конкретна аудитория и обяснява защо е подходящ точно за нея.',steps:['Определете конкретен получател.','Изберете текст или откъс.','Посочете интерес или нужда на получателя.','Дайте доказателство от текста.','Формулирайте препоръка.'],adapt:{primary:'Препоръка на приятел или по-малък ученик.',middle:'Препоръка според интерес и тема.',high:'Критична препоръка с ограничения и целева аудитория.'},teacher:'На кого би дал този текст и какво точно би намерил той в него?',avoid:'Обща оценка „хареса ми“, без връзка с аудиторията и текста.'},
+  {category:'identity',title:'Учителят като реален читател',barrier:'Учениците вярват, че добрият читател разбира всичко веднага и без усилие.',links:['Как чета?','Защо чета?'],essence:'Учителят моделира автентично трудност, препрочитане, любопитство и промяна на интерпретацията.',steps:['Изберете реално място на затруднение.','Мислете на глас без да играете предварително съвършенство.','Покажете стратегията.','Назовете как разбирането се е променило.'],adapt:{primary:'Кратко моделиране с ясна стратегия.',middle:'Моделиране на извод и текстова опора.',high:'Моделиране на съмнение, проверка на източник и ревизия на позиция.'},teacher:'Първо го разбрах по един начин, но този цитат ме накара да се върна и да променя идеята си.',avoid:'Фалшиво затруднение, което учениците усещат като театрално.'},
+  {category:'social',title:'Четене по двойки с роли',barrier:'Самотното четене води до пасивност или неравностойно участие.',links:['Как чета?'],essence:'Учениците четат с ясни, сменящи се роли: откривател, задаващ въпроси, търсещ доказателства, обобщаващ, проверяващ.',steps:['Определете 2–4 роли.','Дайте конкретен продукт на всяка роля.','Сменете ролите при следващата част.','Обединете приноса в общ извод.'],adapt:{primary:'Две прости роли с визуални карти.',middle:'Три роли и кратък общ запис.',high:'Роли за аргумент, надеждност, синтез и контрадовод.'},teacher:'Всеки има различен принос; след малко ще смените ролите.',avoid:'Един ученик постоянно да чете и мисли, а другият само да записва.'},
+  {category:'social',title:'Избери цитат, защити избора си',barrier:'Обсъждането остава общо и най-гласните ученици доминират.',links:['Как чета?','И какво от това?'],essence:'Всеки ученик избира най-важно, изненадващо, неясно или спорно място и защитава избора си.',steps:['Дайте конкретна категория за избор.','Всеки маркира цитат или данни.','Обяснява избора пред партньор.','Партньорът задава уточняващ въпрос.','Групата сравнява различните избори.'],adapt:{primary:'Избор на изречение или картина и устно обяснение.',middle:'Цитат с кратка обосновка.',high:'Цитат или данни с оценка на функцията и надеждността.'},teacher:'Кой ред избра и защо точно той е най-важен за твоя извод?',avoid:'Да се приема само един „правилен“ цитат, когато има повече защитими избори.'},
+  {category:'social',title:'Читателски гласове в класа',barrier:'Учениците възприемат четенето като възпроизвеждане на един учителски отговор.',links:['Как чета?','И какво от това?'],essence:'Класът сравнява различни, но аргументирани читателски наблюдения и интерпретации.',steps:['Всеки записва кратко наблюдение.','Споделя се в двойка или група.','Откриват се съгласия и разлики.','Всяка позиция се връща към текста.','Формулира се какво остава отворено.'],adapt:{primary:'Различни реакции към герой или събитие.',middle:'Различни тълкувания с текстова опора.',high:'Сравнение на рамки, позиции и ограничения на интерпретацията.'},teacher:'Какво забеляза ти, което друг читател може да е пропуснал?',avoid:'Всички отговори да се приемат за еднакво добри без критерий и текстова опора.'},
+  {category:'social',title:'Общ продукт с реална аудитория',barrier:'Прочетеното приключва с оценка и няма видима стойност извън часа.',links:['И какво от това?','Защо чета?'],essence:'Разбирането се използва за продукт, решение или послание към реална аудитория.',steps:['Определете реална аудитория и нужда.','Прочетете подходящи източници.','Изберете важната информация и доказателства.','Създайте продукт.','Получете реакция или използвайте продукта.'],adapt:{primary:'Плакат, препоръка или писмо до друг клас.',middle:'Подкаст, гид, предложение към училището.',high:'Позиция, доклад, кампания или препоръка към институция.'},teacher:'Кой реално ще използва това, което създаваме, и какво трябва да разбере?',avoid:'„Реалната аудитория“ да е измислена, без продуктът действително да бъде споделен.'}
+];
+
+let motivationCategory='all';
+function renderMotivation(){
+  const stageLabel=STAGES[currentStage].label;
+  document.getElementById('motivation-filter').innerHTML=MOTIVATION_CATEGORIES.map(([id,label])=>`<button type="button" class="${motivationCategory===id?'active':''}" data-motivation-filter="${id}">${label}</button>`).join('');
+  const items=MOTIVATION_STRATEGIES.filter(x=>motivationCategory==='all'||x.category===motivationCategory);
+  document.getElementById('motivation-grid').innerHTML=items.map(x=>`<article class="motivation-card">
+    <button class="motivation-summary" type="button" aria-expanded="false"><span><strong>${x.title}</strong><small>${x.barrier}</small></span><span class="motivation-arrow">▸</span></button>
+    <div class="motivation-detail">
+      <h5>Същност</h5><p>${x.essence}</p>
+      <h5>Как се прилага</h5><ol>${x.steps.map(v=>`<li>${v}</li>`).join('')}</ol>
+      <h5>За избрания етап — ${stageLabel}</h5><p>${x.adapt[currentStage]}</p>
+      <div class="teacher-line">„${x.teacher}“</div>
+      <div class="avoid-line"><strong>Избягвай:</strong> ${x.avoid}</div>
+      <div class="framework-links">${x.links.map(v=>`<span>${v}</span>`).join('')}</div>
+    </div>
+  </article>`).join('');
+  document.querySelectorAll('[data-motivation-filter]').forEach(btn=>btn.addEventListener('click',()=>{motivationCategory=btn.dataset.motivationFilter;renderMotivation();}));
+  document.querySelectorAll('.motivation-summary').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('.motivation-card');card.classList.toggle('open');btn.setAttribute('aria-expanded',card.classList.contains('open')?'true':'false');}));
+}
+
+function openMotivation(){
+  document.querySelectorAll('.qstep').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('[data-view-panel]').forEach(x=>x.classList.remove('active'));
+  document.querySelector('[data-view-panel="motivation"]').classList.add('active');
+  document.querySelector('[data-open-motivation]').classList.add('active');
+  renderMotivation();
+  document.querySelector('[data-view-panel="motivation"]').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
 const OUTCOMES = {
   primary:[
     ['Показвам разбиране','Отговор, подреждане, схема, рисунка, кратък преразказ.',['Ключови факти','Последователност','Основна идея']],
@@ -851,7 +964,7 @@ function bindExpandableCards(){
 }
 
 function renderAll(){
-  renderWhy();renderWhat();renderHow();renderOutcomes();
+  renderWhy();renderWhat();renderHow();renderOutcomes();renderMotivation();
   bindExpandableCards();
 }
 
@@ -867,6 +980,7 @@ document.querySelectorAll('.qstep').forEach(btn=>btn.addEventListener('click',()
   document.querySelectorAll('.qstep').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('[data-view-panel]').forEach(x=>x.classList.remove('active'));
   btn.classList.add('active');
+  document.querySelector('[data-open-motivation]').classList.remove('active');
   document.querySelector(`[data-view-panel="${btn.dataset.view}"]`).classList.add('active');
 }));
 
@@ -876,6 +990,8 @@ document.querySelectorAll('.stage-tab').forEach(btn=>btn.addEventListener('click
   btn.classList.add('active');
   renderAll();
 }));
+
+document.querySelector('[data-open-motivation]').addEventListener('click',openMotivation);
 
 renderAll();
 </script>
