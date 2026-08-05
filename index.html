@@ -88,8 +88,38 @@ header .header-note{max-width:610px;font-size:13px;line-height:1.65;text-align:l
 .direct-levels{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.direct-levels>div{padding:8px 9px;border:1px solid var(--rule);border-radius:7px;background:var(--bg)}.direct-levels strong{display:block;font-size:10px;color:var(--ink)}.direct-levels span{display:block;font-size:10px;color:var(--soft);margin-top:2px}.phase-nav,body>main,body>.footer{display:none!important}
 </style>
 
+
+<style id="matrix-first-redesign">
+:root{--canvas:#F3F0EA;--navy:#17324D;--navy-soft:#EAF0F5;--gold:#E0A23A;--drawer-w:min(560px,92vw)}
+body{background:var(--canvas)}
+header{padding:16px max(28px,calc((100vw - 1480px)/2));align-items:center;background:#fff;border-bottom:0}
+header h1{font-size:22px;line-height:1.05}header h1 br{display:none}header .header-note{font-size:11px;max-width:650px}
+.stage-bar{top:0;padding:7px max(28px,calc((100vw - 1480px)/2));justify-content:center;background:rgba(255,255,255,.97)}
+.stage-tab{max-width:260px;text-align:center;border-radius:999px;padding:8px 14px}.stage-tab small{display:inline;margin-left:4px}
+.context-shell{display:none;position:fixed;z-index:70;left:50%;top:72px;transform:translateX(-50%);width:min(980px,calc(100vw - 32px));max-height:calc(100vh - 96px);overflow:auto;padding:0;border:0;background:transparent}
+body.context-open .context-shell{display:block}.context-summary{border-radius:18px;padding:18px 20px}.context-drawer,.text-checker{max-height:none}
+.ui-overlay{position:fixed;inset:0;background:rgba(18,24,30,.38);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:.2s;z-index:60}
+body.context-open .ui-overlay,body.detail-open .ui-overlay{opacity:1;pointer-events:auto}
+.matrix-shell{max-width:1500px;padding:24px 28px 60px}
+.matrix-intro{background:transparent!important;border:0!important;box-shadow:none!important;padding:8px 2px 16px!important;margin:0!important;align-items:end!important}
+.matrix-intro-copy{max-width:760px}.core-label{display:inline-block;font-size:9px;letter-spacing:.13em;font-weight:800;color:var(--accent);margin-bottom:5px}
+.matrix-intro h2{font-size:38px!important;line-height:1;margin:0 0 7px!important}.matrix-intro p{font-size:13px!important;max-width:720px!important}
+.matrix-toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.matrix-toolbar button{border:1px solid #CFC8BE;background:#fff;border-radius:999px;padding:9px 13px;font-size:10px;font-weight:800;cursor:pointer}.matrix-toolbar button:nth-child(2){border-color:#E5A18E;color:#A83E28;background:#FFF8F5}.matrix-toolbar button:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(30,25,20,.08)}
+.workspace-grid{display:block!important}.workspace-main{min-width:0}.workspace-side{position:static!important;max-height:none!important;overflow:visible!important}
+.reading-matrix{grid-template-columns:175px repeat(3,minmax(240px,1fr))!important;border:2px solid var(--navy)!important;border-radius:18px!important;box-shadow:0 18px 50px rgba(23,50,77,.13)!important;overflow:hidden;background:#fff}
+.mx-corner{background:var(--navy)!important;color:#fff!important;padding:18px!important}.mx-col{padding:18px 16px!important;background:var(--navy-soft)!important;border-color:#C9D5DF!important}.mx-col strong{font-size:20px!important;color:var(--navy)}.mx-col span{font-size:10px!important;line-height:1.35;display:block;margin-top:3px}
+.mx-row{padding:18px 16px!important;background:#F8F4EC!important;border-color:#D9D1C5!important}.mx-row strong{font-size:15px!important}.mx-row span{font-size:10px!important;margin-top:3px}
+.mx-cell{min-height:145px!important;border-color:#DDD7CE!important}.mx-btn{min-height:145px!important;padding:18px!important;position:relative;transition:.18s;background:#fff}.mx-btn:hover{background:#FFFDF8;box-shadow:inset 0 0 0 2px #E5B661}.mx-btn.active{background:#FFF7E7!important;box-shadow:inset 0 0 0 3px var(--gold)!important}.mx-action{font-size:14px!important;line-height:1.3;margin-bottom:7px!important}.mx-summary{font-size:10.5px!important;line-height:1.5!important;-webkit-line-clamp:4!important}.mx-count{position:absolute;left:18px;bottom:14px;background:#F0ECE5!important;font-weight:700}
+.axis-note{max-width:1000px;margin:14px auto 0!important;text-align:center;border:0!important;background:transparent!important;font-size:10.5px!important}.axis-note span{margin-top:2px!important}
+.matrix-detail{position:fixed!important;z-index:80;right:0;top:0;width:var(--drawer-w);height:100vh;max-height:none!important;overflow:auto;margin:0!important;border:0!important;border-radius:22px 0 0 22px!important;box-shadow:-18px 0 55px rgba(20,26,32,.2)!important;transform:translateX(105%);transition:transform .25s ease;background:#fff}
+body.detail-open .matrix-detail{transform:translateX(0)}.drawer-close{position:sticky;float:right;top:10px;margin:10px 12px 0 0;z-index:4;width:34px;height:34px;border:1px solid var(--rule);border-radius:50%;background:#fff;font-size:22px;line-height:1;cursor:pointer}.matrix-detail-toggle{padding:24px 56px 18px 22px!important;background:#F8F6F1!important}.matrix-detail-toggle h3{font-size:27px!important}.matrix-detail-body{display:block!important;padding:18px 22px 30px!important}.matrix-detail-arrow{display:none}.detail-grid{grid-template-columns:1fr!important}.matrix-strategies{grid-template-columns:1fr!important}
+.teacher-supports{margin-top:28px!important;border:1px solid #D8D1C8!important;box-shadow:none!important;background:rgba(255,255,255,.58)!important}.teacher-supports-head{background:transparent!important}
+@media(min-width:1050px){.matrix-shell{min-height:calc(100vh - 104px);display:flex;flex-direction:column;justify-content:flex-start}.reading-matrix{min-height:520px}}
+@media(max-width:900px){.matrix-intro{display:block!important}.matrix-toolbar{justify-content:flex-start;margin-top:14px}.reading-matrix{grid-template-columns:125px repeat(3,minmax(205px,1fr))!important;overflow-x:auto}.mx-cell,.mx-btn{min-height:130px!important}}
+@media(max-width:760px){header{padding:16px}header .header-note{display:none}.stage-bar{justify-content:flex-start}.matrix-shell{padding:16px 12px 36px}.matrix-intro h2{font-size:31px!important}.matrix-toolbar button{flex:1}.reading-matrix{display:block!important;border:0!important;box-shadow:none!important;background:transparent!important}.mx-row{border:1px solid var(--navy)!important;background:var(--navy)!important;color:#fff;border-radius:10px!important}.mx-row span{color:#DCE6EE!important}.mx-cell{min-height:0!important}.mx-btn{min-height:0!important;border-radius:10px;background:#fff}.mx-btn:before{color:var(--navy)!important;font-weight:800}.context-shell{top:66px}.matrix-detail{width:100vw;border-radius:18px 18px 0 0!important;top:8vh;height:92vh;transform:translateY(105%)}body.detail-open .matrix-detail{transform:translateY(0)}}
+</style>
 </head>
-<body>
+<body><div class="ui-overlay" id="ui-overlay" aria-hidden="true"></div>
 <header><h1>Четивна грамотност<br>— <em>от текст към разбиране</em></h1><div class="header-note">Практична рамка за избор на текст, планиране на задачи и подкрепа на разбирането — за всеки предмет и клас, преди, по време и след четене.</div></header>
 <div class="stage-bar"><button class="stage-tab active" data-stage="primary">Начален етап <small>I–IV клас</small></button><button class="stage-tab" data-stage="middle">Прогимназия <small>V–VII клас</small></button><button class="stage-tab" data-stage="high">Гимназия <small>VIII–X клас</small></button></div>
 <section class="context-shell">
@@ -103,8 +133,12 @@ header .header-note{max-width:610px;font-size:13px;line-height:1.65;text-align:l
 
 <section class="matrix-shell" id="matrix-shell">
   <div class="matrix-intro">
-    <div><h2>Как четем?</h2><p>Това е сърцето на рамката. Избери <strong>кога работим с текста</strong> и <strong>каква умствена работа</strong> очакваме от учениците. Във всяка клетка ще намериш примерни задачи, стратегии и насоки за подкрепа.</p></div>
-    <div class="matrix-key">Редове: кога работим<br>Колони: как мислим</div>
+    <div class="matrix-intro-copy"><span class="core-label">РАМКА ЗА ПЛАНИРАНЕ</span><h2>Как четем?</h2><p>Избери пресечната точка между <strong>момента на четене</strong> и <strong>умствената работа</strong>, която очакваш от учениците.</p></div>
+    <div class="matrix-toolbar">
+      <button type="button" id="open-task-settings">Настройки на задачата</button>
+      <button type="button" id="open-text-check">Провери текста</button>
+      <button type="button" id="open-teacher-tools">Опори за учителя</button>
+    </div>
   </div>
   <div class="workspace-grid">
     <div class="workspace-main">
@@ -866,9 +900,10 @@ function renderMatrixDetail(){
  const example=cd&&!cd.unavailable&&cd.ex?cd.ex:`„${c.prompt}“`;
  const guidance=cd&&!cd.unavailable?(cd.impl||[]):[];
  box.className=`matrix-detail ${matrixDetailOpen?'open':''}`.trim();
- box.innerHTML=`<button class="matrix-detail-toggle" type="button" aria-expanded="${matrixDetailOpen?'true':'false'}"><span><h3>${ph.name} × ${pr.name}</h3><p>${c.action} · ${stageLabel} · ${typeLabel}</p></span><span class="matrix-detail-arrow">▸</span></button><div class="matrix-detail-body"><div class="detail-grid"><div class="detail-card"><h4>Какво прави ученикът</h4><p>${c.summary}</p>${pr.id==='direct'?'<div class="direct-levels"><div><strong>Намери</strong><span>Отговорът е изрично представен.</span></div><div><strong>Свържи</strong><span>Отговорът следва непосредствено от текстови следи.</span></div></div>':''}<h4 style="margin-top:13px">Примерна инструкция или задача</h4><div class="detail-example">${example}</div></div><div class="detail-card"><h4>Как да я проектираш</h4>${guidance.length?`<ul class="detail-list">${guidance.map(x=>`<li>${x}</li>`).join('')}</ul>`:`<p style="color:var(--soft);font-size:11px">Използвай задачата, за да активираш процеса в този конкретен момент, без да предполагаш, че процесът принадлежи само на тази фаза.</p>`}</div></div><div class="section-title">Подходящи стратегии</div><div class="matrix-strategies">${c.strategies.map(strategyCard).join('')}</div><div class="matrix-products"><div class="section-title">Възможни резултати и продукти</div><div class="product-chips">${MATRIX_PRODUCTS[currentStage].map(x=>`<span class="product-chip">${x}</span>`).join('')}</div></div></div>`;
+ box.innerHTML=`<button class="drawer-close" type="button" aria-label="Затвори">×</button><button class="matrix-detail-toggle" type="button" aria-expanded="${matrixDetailOpen?'true':'false'}"><span><h3>${ph.name} × ${pr.name}</h3><p>${c.action} · ${stageLabel} · ${typeLabel}</p></span><span class="matrix-detail-arrow">▸</span></button><div class="matrix-detail-body"><div class="detail-grid"><div class="detail-card"><h4>Какво прави ученикът</h4><p>${c.summary}</p>${pr.id==='direct'?'<div class="direct-levels"><div><strong>Намери</strong><span>Отговорът е изрично представен.</span></div><div><strong>Свържи</strong><span>Отговорът следва непосредствено от текстови следи.</span></div></div>':''}<h4 style="margin-top:13px">Примерна инструкция или задача</h4><div class="detail-example">${example}</div></div><div class="detail-card"><h4>Как да я проектираш</h4>${guidance.length?`<ul class="detail-list">${guidance.map(x=>`<li>${x}</li>`).join('')}</ul>`:`<p style="color:var(--soft);font-size:11px">Използвай задачата, за да активираш процеса в този конкретен момент, без да предполагаш, че процесът принадлежи само на тази фаза.</p>`}</div></div><div class="section-title">Подходящи стратегии</div><div class="matrix-strategies">${c.strategies.map(strategyCard).join('')}</div><div class="matrix-products"><div class="section-title">Възможни резултати и продукти</div><div class="product-chips">${MATRIX_PRODUCTS[currentStage].map(x=>`<span class="product-chip">${x}</span>`).join('')}</div></div></div>`;
  const toggle=box.querySelector('.matrix-detail-toggle');
  if(toggle) toggle.onclick=()=>{matrixDetailOpen=!matrixDetailOpen; renderMatrixDetail();};
+ const closeBtn=box.querySelector('.drawer-close'); if(closeBtn) closeBtn.onclick=()=>closeAllPanels();
  bindExpandables();
 }
 
@@ -920,5 +955,29 @@ document.querySelector('.text-check-toggle').onclick=()=>{const b=document.getEl
 refreshMatrix();
 </script>
 
+
+<script id="matrix-first-ui-script">
+function closeAllPanels(){
+  document.body.classList.remove('detail-open','context-open');
+  const ov=document.getElementById('ui-overlay'); if(ov) ov.setAttribute('aria-hidden','true');
+}
+(function(){
+ const overlay=document.getElementById('ui-overlay');
+ if(overlay) overlay.addEventListener('click',closeAllPanels);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAllPanels();});
+ document.addEventListener('click',e=>{
+   const cell=e.target.closest('.mx-btn');
+   if(cell){document.body.classList.remove('context-open');document.body.classList.add('detail-open');if(overlay)overlay.setAttribute('aria-hidden','false');}
+ });
+ const settings=document.getElementById('open-task-settings');
+ const check=document.getElementById('open-text-check');
+ const tools=document.getElementById('open-teacher-tools');
+ const contextToggle=document.querySelector('.context-toggle');
+ const checkToggle=document.querySelector('.text-check-toggle');
+ if(settings) settings.onclick=()=>{closeAllPanels();document.body.classList.add('context-open');if(overlay)overlay.setAttribute('aria-hidden','false');if(contextToggle&&!document.getElementById('context-drawer').classList.contains('open'))contextToggle.click();};
+ if(check) check.onclick=()=>{closeAllPanels();document.body.classList.add('context-open');if(overlay)overlay.setAttribute('aria-hidden','false');if(checkToggle&&!document.getElementById('text-checker').classList.contains('open'))checkToggle.click();};
+ if(tools) tools.onclick=()=>{closeAllPanels();document.getElementById('teacher-supports')?.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>document.querySelector('.teacher-supports-head')?.click(),350);};
+})();
+</script>
 </body>
 </html>
