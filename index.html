@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Четивна грамотност — интегрирана рамка</title>
+<title>Четивна грамотност — от текст към разбиране</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 :root{--bg:#F5F2EC;--paper:#fff;--ink:#1A1714;--soft:#625D57;--rule:#D7D1C8;--accent:#C84B2F;--before:#A45A2A;--befores:#F8EEE7;--during:#245C83;--durings:#EAF1F6;--after:#5C3C77;--afters:#F1ECF5;--p1:#2D5986;--p1s:#E8EEF5;--p2:#3D7A5E;--p2s:#E8F2ED;--p3:#8B4A9C;--p3s:#F2EAF5;--p4:#7A4A1E;--p4s:#F5EDE5;--primary:#1E5799;--middle:#C84B2F;--high:#1E6B4A}
@@ -21,6 +21,43 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
 .direct-levels{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.direct-levels>div{padding:8px 9px;border:1px solid var(--rule);border-radius:7px;background:var(--bg)}.direct-levels strong{display:block;font-size:10px;color:var(--ink)}.direct-levels span{display:block;font-size:10px;color:var(--soft);margin-top:2px}.phase-nav,body>main,body>.footer{display:none!important}
 
 .teacher-supports{margin-top:15px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}.teacher-supports-head{width:100%;border:0;background:#faf8f3;padding:15px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;text-align:left;cursor:pointer}.teacher-supports-head:hover{background:#F4F0EA}.teacher-supports-head h2{font-family:'DM Serif Display',serif;font-size:23px;font-weight:400;margin:0 0 2px}.teacher-supports-head p{margin:0;color:var(--soft);font-size:11px}.teacher-supports-arrow{color:var(--accent);font-size:18px;font-weight:700;transition:transform .2s}.teacher-supports.open .teacher-supports-arrow{transform:rotate(90deg)}.teacher-supports-body{display:none;border-top:1px solid var(--rule);padding:14px 18px 18px}.teacher-supports.open .teacher-supports-body{display:block}.teacher-supports-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.teacher-supports-tab{border:1px solid var(--rule);background:var(--bg);border-radius:999px;padding:7px 11px;cursor:pointer;font-weight:700;color:var(--soft);font-size:11px}.teacher-supports-tab.active{background:#fff8e8;border-color:var(--accent);color:var(--ink)}.teacher-supports-panel{display:none}.teacher-supports-panel.active{display:block}.teacher-supports-panel-intro{margin:0 0 11px;color:var(--soft);font-size:11px}.teacher-supports .strategy-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.teacher-supports .teaching-grid{grid-template-columns:repeat(auto-fit,minmax(245px,1fr))}@media(max-width:1000px){.teacher-supports .strategy-tools-grid{grid-template-columns:1fr}}@media(max-width:760px){.teacher-supports-head{display:flex}.teacher-supports-tabs{display:grid;grid-template-columns:1fr}.teacher-supports-tab{text-align:left}}
+
+/* ── UI REDESIGN V8 ───────────────────────────────────────────── */
+body{background:#F4F1EB}
+header{padding:30px max(28px,calc((100vw - 1320px)/2)) 24px;background:linear-gradient(135deg,#fff 0%,#FAF6EF 100%);align-items:center;border-bottom:0}
+header h1{font-size:clamp(30px,3vw,44px);letter-spacing:-.02em}
+header .header-note{max-width:610px;font-size:13px;line-height:1.65;text-align:left;margin-left:auto;padding-left:24px;border-left:1px solid var(--rule)}
+.stage-bar{position:sticky;top:0;z-index:30;padding:8px max(28px,calc((100vw - 1320px)/2));background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);gap:7px}
+.stage-tab{flex:1;max-width:240px;margin:0;padding:9px 16px;border:1px solid transparent;border-radius:9px;text-align:left}
+.stage-tab small{display:inline;margin-left:6px}.stage-tab.active{background:#fff;box-shadow:0 2px 12px rgba(30,25,20,.07);border-color:var(--rule);border-bottom-color:var(--rule)!important}
+.context-shell{padding:18px max(28px,calc((100vw - 1320px)/2)) 12px;border:0}
+.context-summary{border:1px solid #D9D3CA;border-radius:14px;padding:14px 16px;box-shadow:0 8px 30px rgba(48,40,30,.05);grid-template-columns:minmax(0,1fr) auto}
+.context-summary strong{font-size:20px}.context-summary span{display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.context-actions{display:flex;gap:7px}.context-toggle,.text-check-toggle{border:1px solid var(--rule)!important;background:#fff!important;border-radius:8px!important;padding:8px 11px!important;color:var(--ink)!important;font-size:11px;font-weight:700;cursor:pointer}
+.text-check-toggle{border-color:#E2A492!important;color:#A83E28!important;background:#FFF9F6!important}
+.context-drawer,.text-checker{box-shadow:0 14px 35px rgba(48,40,30,.07);border-radius:12px!important}
+.matrix-shell{max-width:1400px;margin:0 auto;padding:14px 28px 42px}
+.matrix-intro{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin:4px 0 14px;padding:0 2px}
+.matrix-intro h2{font-size:31px;margin-bottom:3px}.matrix-intro p{max-width:720px;font-size:12px}.matrix-key{border:0!important;background:transparent!important;padding:0!important;text-align:right;font-size:10px!important;line-height:1.6}
+.workspace-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(340px,.72fr);gap:16px;align-items:start}
+.workspace-main{min-width:0}.workspace-side{position:sticky;top:76px;min-width:0;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}
+.reading-matrix{border-radius:14px;box-shadow:0 10px 32px rgba(48,40,30,.06);background:#fff}
+.mx-corner,.mx-col,.mx-row,.mx-cell{border-color:#E3DED6!important}
+.mx-col{padding:13px 12px!important}.mx-col strong{font-size:12px!important}.mx-col span{font-size:9px!important}
+.mx-row{padding:13px 11px!important}.mx-btn{min-height:102px;padding:12px!important}.mx-action{font-size:11.5px}.mx-summary{font-size:9.5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.mx-count{margin-top:6px}
+.mx-btn.active{box-shadow:inset 0 0 0 2px var(--accent),0 4px 14px rgba(200,75,47,.09)}
+.axis-note{margin-top:10px;padding:10px 12px;border:1px solid var(--rule);border-left:3px solid var(--l2);border-radius:9px;background:rgba(255,255,255,.72);font-size:10px;line-height:1.5}.axis-note br{display:none}.axis-note span{display:block;margin-top:3px;color:#77706A}
+.matrix-detail{margin:0;border-radius:14px;box-shadow:0 10px 32px rgba(48,40,30,.07);border-color:#D9D3CA}
+.matrix-detail-toggle{padding:15px 16px}.matrix-detail-toggle h3{font-size:21px}.matrix-detail-toggle p{font-size:10px;line-height:1.45}.matrix-detail-body{padding:14px}
+.detail-grid{grid-template-columns:1fr;gap:10px}.detail-card{padding:12px}.matrix-strategies{grid-template-columns:1fr}.matrix-products{margin-top:11px}.product-chips{gap:5px}.product-chip{font-size:9px}
+.teacher-supports{margin-top:16px;border-radius:14px;box-shadow:0 8px 26px rgba(48,40,30,.05);overflow:hidden}
+.teacher-supports-head{padding:15px 17px}.teacher-supports-head h2{font-size:20px!important}.teacher-supports-head p{font-size:10px!important}
+.teacher-supports-tabs{position:sticky;top:0;background:#fff;z-index:2;padding:8px;gap:6px}.teacher-supports-tab{border-radius:8px!important;padding:8px 11px!important;font-size:10px!important}
+.strategy-tools-grid,.teaching-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}.strategy-tool-card,.teaching-card{padding:13px!important}
+.footer{display:none!important}
+@media(max-width:1080px){.workspace-grid{grid-template-columns:1fr}.workspace-side{position:static;max-height:none;overflow:visible}.matrix-detail{margin-top:0}.strategy-tools-grid,.teaching-grid{grid-template-columns:1fr 1fr!important}}
+@media(max-width:720px){header{padding:22px 16px 18px;display:block}header .header-note{border-left:0;padding-left:0;margin-top:12px}.stage-bar{padding:7px 12px;overflow-x:auto}.stage-tab{min-width:150px;flex:0 0 auto}.stage-tab small{display:block;margin-left:0}.context-shell{padding:12px}.context-summary{grid-template-columns:1fr}.context-summary span{white-space:normal}.context-actions{width:100%}.context-actions button{flex:1}.matrix-shell{padding:10px 12px 30px}.matrix-intro{display:block}.matrix-key{text-align:left;margin-top:6px}.reading-matrix{grid-template-columns:92px repeat(3,minmax(165px,1fr));overflow-x:auto}.strategy-tools-grid,.teaching-grid{grid-template-columns:1fr!important}.teacher-supports-tabs{overflow-x:auto;justify-content:flex-start}.teacher-supports-tab{white-space:nowrap}}
+
 </style>
 
 <style id="matrix-overrides">
@@ -66,12 +103,18 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
 
 <section class="matrix-shell" id="matrix-shell">
   <div class="matrix-intro">
-    <div><h2>Как четем?</h2><p>Избери <strong>кога работим с текста</strong> и <strong>каква умствена работа</strong> очакваме от учениците. Във всяка клетка ще намериш примерни задачи, стратегии и насоки за подкрепа.</p></div>
+    <div><h2>Как четем?</h2><p>Това е сърцето на рамката. Избери <strong>кога работим с текста</strong> и <strong>каква умствена работа</strong> очакваме от учениците. Във всяка клетка ще намериш примерни задачи, стратегии и насоки за подкрепа.</p></div>
     <div class="matrix-key">Редове: кога работим<br>Колони: как мислим</div>
   </div>
-  <div class="reading-matrix" id="reading-matrix"></div>
-  <div class="axis-note"><strong>Процеси и стратегии:</strong> Процесите описват какво разбира ученикът. Стратегиите описват как управлява собственото си четене, за да стигне до това разбиране.<br><br><strong>Важно:</strong> „Преди / по време / след“ не са нива на разбиране, а организация на работата. „Намери и свържи / обясни и обобщи / прецени и обоснови“ не са фиксирана последователност и могат да се използват във всеки момент.</div>
-  <section class="matrix-detail" id="matrix-detail"></section>
+  <div class="workspace-grid">
+    <div class="workspace-main">
+      <div class="reading-matrix" id="reading-matrix"></div>
+      <div class="axis-note"><strong>Процеси и стратегии:</strong> Процесите описват какво разбира ученикът. Стратегиите описват как управлява собственото си четене, за да стигне до това разбиране.<br><span>„Преди / по време / след“ организира работата; трите процеса могат да се използват във всеки момент.</span></div>
+    </div>
+    <aside class="workspace-side">
+      <section class="matrix-detail" id="matrix-detail"></section>
+    </aside>
+  </div>
   <section class="teacher-supports" id="teacher-supports">
     <button class="teacher-supports-head" type="button" aria-expanded="false">
       <span><h2>Допълнителни опори за учителя</h2><p>Подкрепа за ангажираност, стратегическо четене и силно преподаване — когато ти потрябва.</p></span>
