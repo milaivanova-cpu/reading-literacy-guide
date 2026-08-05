@@ -6,223 +6,76 @@
 <title>Четивна грамотност — интегрирана рамка</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-:root{
-  --bg:#F5F2EC;--paper:#fff;--ink:#1A1714;--soft:#625D57;--rule:#D7D1C8;--accent:#C84B2F;
-  --q1:#A94A2B;--q1s:#F8EDE8;--q2:#6B6A2F;--q2s:#F1F1E7;--q3:#245C83;--q3s:#EAF1F6;--q4:#5C3C77;--q4s:#F1ECF5;
-  --p1:#2D5986;--p1s:#E8EEF5;--p2:#3D7A5E;--p2s:#E8F2ED;--p3:#8B4A9C;--p3s:#F2EAF5;--p4:#7A4A1E;--p4s:#F5EDE5;
-  --primary:#1E5799;--middle:#C84B2F;--high:#1E6B4A;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.55}
-button{font:inherit}
-header{padding:28px 48px 22px;border-bottom:1px solid var(--rule);display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;background:rgba(255,255,255,.35)}
-header h1{margin:0;font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;line-height:1.1}
-header h1 em{color:var(--accent);font-style:italic}
-.header-note{margin-left:auto;max-width:440px;color:var(--soft);font-size:12px;text-align:right}
-.question-map{padding:18px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-bottom:1px solid var(--rule)}
-.qstep{border:1px solid var(--rule);border-radius:10px;padding:13px 14px;background:var(--paper);text-align:left;cursor:pointer;transition:.15s}
-.qstep:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(0,0,0,.06)}
-.qstep.active{outline:2px solid currentColor}
-.qstep small{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:9px;font-weight:700;opacity:.72;margin-bottom:2px}
-.qstep strong{display:block;font-family:'DM Serif Display',serif;font-size:18px;font-weight:400}
-.qstep span{display:block;font-size:11px;color:var(--soft);margin-top:2px}
-.qstep[data-view="why"]{color:var(--q1);background:var(--q1s)}
-.qstep[data-view="what"]{color:var(--q2);background:var(--q2s)}
-.qstep[data-view="how"]{color:var(--q3);background:var(--q3s)}
-.qstep[data-view="so-what"]{color:var(--q4);background:var(--q4s)}
-.stage-bar{padding:0 48px;border-bottom:2px solid var(--rule);display:flex}
-.stage-tab{padding:13px 24px 11px;border:none;background:none;color:var(--soft);font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
-.stage-tab small{display:block;font-size:9px;font-weight:400}
-.stage-tab.active[data-stage="primary"]{color:var(--primary);border-bottom-color:var(--primary)}
-.stage-tab.active[data-stage="middle"]{color:var(--middle);border-bottom-color:var(--middle)}
-.stage-tab.active[data-stage="high"]{color:var(--high);border-bottom-color:var(--high)}
-.panel{display:none;padding:20px 48px 34px}
-.panel.active{display:block}
-.intro-card{border:1px solid var(--rule);background:var(--paper);border-radius:12px;padding:18px 20px;margin-bottom:16px}
-.intro-card h2{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;margin:0 0 5px}
-.intro-card p{margin:0;color:var(--soft)}
-.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.choice{background:var(--paper);border:1px solid var(--rule);border-radius:9px;padding:13px 14px}
-.choice strong{display:block;margin-bottom:3px}
-.choice p{margin:0;color:var(--soft);font-size:12px}
-.callout{margin-top:14px;padding:11px 13px;border-left:3px solid var(--accent);background:#fff;border-radius:0 7px 7px 0;color:var(--soft);font-size:12px}
-.control-row{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}
-.control-block{min-width:240px;flex:1}
-.control-label{text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:700;color:var(--soft);margin-bottom:7px}
-.type-tabs{display:flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:9px;overflow:hidden;width:fit-content;max-width:100%}
-.type-btn{padding:8px 12px;border:none;border-right:1px solid var(--rule);background:#fff;color:var(--soft);cursor:pointer}
-.type-btn:hover,.type-btn.active{background:#EEEAE3;color:var(--ink);font-weight:700}
-.context-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:14px}
-.context-item{padding:10px 11px;background:#fff;border:1px solid var(--rule);border-radius:8px}
-.context-item strong{display:block;text-transform:uppercase;letter-spacing:.06em;font-size:9px;color:var(--soft)}
-.context-item span{font-size:12px}
-.process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.process-card{border:1px solid var(--rule);border-top:4px solid var(--pc);border-radius:10px;background:#fff;overflow:hidden}
-.process-head{padding:13px 15px;background:var(--pcs);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.process-number{font-family:'DM Serif Display',serif;font-size:23px;color:var(--pc)}
-.process-name{font-weight:700;font-size:15px}
-.process-desc{font-size:11px;color:var(--soft)}
-.process-body{padding:14px 15px}
-.badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
-.badge{border-radius:20px;padding:2px 7px;font-size:10px;font-weight:700}
-.easy{background:#E8F5E9;color:#2E7D32}.medium{background:#FFF8E1;color:#B26A00}.hard{background:#FCE4EC;color:#C62828}
-.example{font-family:'DM Serif Display',serif;font-size:13px;font-style:italic;background:var(--bg);border-left:2px solid var(--pc);border-radius:5px;padding:9px 10px;margin-bottom:10px}
-.subj-tag{display:inline-block;padding:1px 6px;border-radius:3px;font-family:'DM Sans',sans-serif;font-style:normal;font-size:9px;font-weight:700;margin-right:4px;background:#E8EEF5;color:#2D5986}
-.subj-tag.mat{background:#FFF3E0;color:#E65100}.subj-tag.sci{background:#E8F5E9;color:#2E7D32}.subj-tag.hist{background:#F3E8FF;color:#6B21A8}
-.strategy-box,.design-box,.outcome-box{border-top:1px solid var(--rule);padding-top:10px;margin-top:10px}
-.box-title{text-transform:uppercase;letter-spacing:.07em;font-size:9px;font-weight:700;color:var(--soft);margin-bottom:7px}
-.strategy-list{display:flex;flex-direction:column;gap:7px}
-.strategy-card{border:1px solid var(--rule);border-radius:8px;background:#FCFBF9;overflow:hidden}
-.strategy-summary{width:100%;border:0;background:transparent;padding:9px 10px;display:grid;grid-template-columns:1fr auto;gap:8px;text-align:left;cursor:pointer;color:var(--ink)}
-.strategy-summary:hover{background:var(--pcs)}
-.strategy-summary strong{font-size:11px;line-height:1.35}
-.strategy-meta{display:block;margin-top:2px;font-size:9px;color:var(--soft);font-weight:500}
-.strategy-arrow{color:var(--pc);font-weight:700;transition:transform .2s}
-.strategy-card.open .strategy-arrow{transform:rotate(90deg)}
-.strategy-detail{display:none;padding:0 10px 10px;border-top:1px solid var(--rule)}
-.strategy-card.open .strategy-detail{display:block}
-.strategy-detail h5{margin:9px 0 3px;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft)}
-.strategy-detail p{margin:0;font-size:10.5px;color:var(--soft)}
-.strategy-detail ol,.strategy-detail ul{margin:3px 0 0;padding-left:17px;font-size:10.5px;color:var(--soft)}
-.strategy-detail li{margin:2px 0}
-.stage-adapt{margin-top:8px;padding:7px 8px;border-radius:6px;background:var(--pcs);font-size:10.5px;color:var(--ink)}
-.student-prompt{margin-top:6px;padding:7px 8px;border-left:2px solid var(--pc);background:#fff;font-family:'DM Serif Display',serif;font-size:11px;font-style:italic}
-.toggle{border:none;background:none;padding:0;color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
-.details{display:none;margin-top:7px}.details.open{display:block}
-.details ul{list-style:none;padding:0;margin:0}.details li{font-size:11px;color:var(--soft);padding:3px 0 3px 13px;position:relative}
-.details li:before{content:'→';position:absolute;left:0;color:var(--accent)}
-.warning{margin-top:7px;background:#FFF3E0;color:#7B4500;border-radius:5px;padding:6px 8px;font-size:10px}
-.na{color:#999;font-style:italic;font-size:12px;background:#F5F3EF;border-radius:6px;padding:12px}
-.outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-.outcome-card{background:#fff;border:1px solid var(--rule);border-radius:9px;padding:14px}
-.outcome-card h3{font-family:'DM Serif Display',serif;font-weight:400;font-size:18px;margin:0 0 4px}
-.outcome-card p{margin:0;color:var(--soft);font-size:12px}
-.outcome-card ul{margin:8px 0 0;padding-left:17px;color:var(--soft);font-size:11px}
-.footer{margin:0 48px 34px;padding:16px 18px;background:#fff;border:1px solid var(--rule);border-radius:10px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px;color:var(--soft);font-size:11px}
-.footer h4{margin:0 0 5px;color:var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.07em}
-@media(max-width:900px){
- header,.question-map,.stage-bar,.panel,.footer{padding-left:16px;padding-right:16px}
- .question-map{grid-template-columns:1fr 1fr}.process-grid{grid-template-columns:1fr}.footer{grid-template-columns:1fr}
-}
-@media(max-width:560px){.question-map{grid-template-columns:1fr}.stage-bar{overflow:auto}.stage-tab{padding:11px 13px}}
+:root{--bg:#F5F2EC;--paper:#fff;--ink:#1A1714;--soft:#625D57;--rule:#D7D1C8;--accent:#C84B2F;--before:#A45A2A;--befores:#F8EEE7;--during:#245C83;--durings:#EAF1F6;--after:#5C3C77;--afters:#F1ECF5;--p1:#2D5986;--p1s:#E8EEF5;--p2:#3D7A5E;--p2s:#E8F2ED;--p3:#8B4A9C;--p3s:#F2EAF5;--p4:#7A4A1E;--p4s:#F5EDE5;--primary:#1E5799;--middle:#C84B2F;--high:#1E6B4A}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.55}button{font:inherit}
+header{padding:26px 48px 18px;border-bottom:1px solid var(--rule);display:flex;gap:24px;align-items:flex-end;flex-wrap:wrap;background:rgba(255,255,255,.38)}header h1{margin:0;font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;line-height:1.1}header h1 em{color:var(--accent)}.header-note{margin-left:auto;max-width:500px;color:var(--soft);font-size:12px;text-align:right}
+.context-shell{padding:14px 48px;border-bottom:1px solid var(--rule)}.context-summary{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:12px 14px}.context-summary strong{display:block;font-family:'DM Serif Display',serif;font-size:18px;font-weight:400}.context-summary span{font-size:11px;color:var(--soft)}.context-toggle{border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700;color:var(--soft)}.context-drawer{display:none;margin-top:10px;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:14px}.context-drawer.open{display:block}.context-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px}.context-item{padding:10px 11px;background:#FCFBF9;border:1px solid var(--rule);border-radius:8px}.context-item strong{display:block;text-transform:uppercase;letter-spacing:.06em;font-size:9px;color:var(--soft)}.context-item span{font-size:12px}.type-tabs{display:flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:9px;overflow:hidden;width:fit-content;max-width:100%;margin-top:8px}.type-btn{padding:8px 12px;border:0;border-right:1px solid var(--rule);background:#fff;color:var(--soft);cursor:pointer}.type-btn.active,.type-btn:hover{background:#EEEAE3;color:var(--ink);font-weight:700}
+.stage-bar{padding:0 48px;border-bottom:2px solid var(--rule);display:flex}.stage-tab{padding:12px 22px 10px;border:0;background:none;color:var(--soft);font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}.stage-tab small{display:block;font-size:9px;font-weight:400}.stage-tab.active[data-stage=primary]{color:var(--primary);border-bottom-color:var(--primary)}.stage-tab.active[data-stage=middle]{color:var(--middle);border-bottom-color:var(--middle)}.stage-tab.active[data-stage=high]{color:var(--high);border-bottom-color:var(--high)}
+.phase-nav{padding:18px 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.phase-tab{border:1px solid var(--rule);border-radius:11px;padding:14px 15px;background:#fff;text-align:left;cursor:pointer}.phase-tab small{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:9px;font-weight:700;opacity:.75}.phase-tab strong{display:block;font-family:'DM Serif Display',serif;font-size:20px;font-weight:400}.phase-tab span{font-size:11px;color:var(--soft)}.phase-tab.active{outline:2px solid currentColor}.phase-tab[data-phase=before]{color:var(--before);background:var(--befores)}.phase-tab[data-phase=during]{color:var(--during);background:var(--durings)}.phase-tab[data-phase=after]{color:var(--after);background:var(--afters)}
+main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:block}.intro-card{border:1px solid var(--rule);background:#fff;border-radius:12px;padding:17px 19px;margin-bottom:13px}.intro-card h2{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;margin:0 0 5px}.intro-card p{margin:0;color:var(--soft)}.section-title{margin:18px 0 9px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft)}.choice-grid,.strategy-grid,.support-grid,.outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.choice,.outcome-card{background:#fff;border:1px solid var(--rule);border-radius:9px;padding:13px 14px}.choice strong{display:block;margin-bottom:3px}.choice p,.outcome-card p{margin:0;color:var(--soft);font-size:12px}.outcome-card h3{font-family:'DM Serif Display',serif;font-weight:400;font-size:18px;margin:0 0 4px}.outcome-card ul{margin:7px 0 0;padding-left:17px;color:var(--soft);font-size:11px}
+.process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.process-card{border:1px solid var(--rule);border-top:4px solid var(--pc);border-radius:10px;background:#fff;overflow:hidden}.process-head{padding:13px 15px;background:var(--pcs);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.process-number{font-family:'DM Serif Display',serif;font-size:23px;color:var(--pc)}.process-name{font-weight:700;font-size:15px}.process-desc{font-size:11px;color:var(--soft)}.process-body{padding:14px 15px}.badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}.badge{border-radius:20px;padding:2px 7px;font-size:10px;font-weight:700}.easy{background:#E8F5E9;color:#2E7D32}.medium{background:#FFF8E1;color:#B26A00}.hard{background:#FCE4EC;color:#C62828}.example{font-family:'DM Serif Display',serif;font-size:13px;font-style:italic;background:var(--bg);border-left:2px solid var(--pc);border-radius:5px;padding:9px 10px;margin-bottom:10px}.subj-tag{display:inline-block;padding:1px 6px;border-radius:3px;font-family:'DM Sans',sans-serif;font-style:normal;font-size:9px;font-weight:700;margin-right:4px;background:#E8EEF5;color:#2D5986}.subj-tag.mat{background:#FFF3E0;color:#E65100}.subj-tag.sci{background:#E8F5E9;color:#2E7D32}.subj-tag.hist{background:#F3E8FF;color:#6B21A8}
+.strategy-card,.motivation-card{border:1px solid var(--rule);border-radius:8px;background:#FCFBF9;overflow:hidden}.strategy-summary,.motivation-summary{width:100%;border:0;background:transparent;padding:10px 11px;display:grid;grid-template-columns:1fr auto;gap:8px;text-align:left;cursor:pointer}.strategy-summary:hover,.motivation-summary:hover{background:#F4F0EA}.strategy-summary strong,.motivation-summary strong{font-size:12px}.strategy-meta,.motivation-summary small{display:block;margin-top:2px;font-size:9px;color:var(--soft)}.strategy-arrow{font-weight:700;transition:.2s}.strategy-card.open .strategy-arrow,.motivation-card.open .strategy-arrow{transform:rotate(90deg)}.strategy-detail,.motivation-detail{display:none;padding:0 11px 11px;border-top:1px solid var(--rule)}.strategy-card.open .strategy-detail,.motivation-card.open .motivation-detail{display:block}.strategy-detail h5,.motivation-detail h5{margin:9px 0 3px;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--soft)}.strategy-detail p,.motivation-detail p{margin:0;font-size:10.5px;color:var(--soft)}.strategy-detail ol,.motivation-detail ol{margin:3px 0 0;padding-left:17px;font-size:10.5px;color:var(--soft)}.stage-adapt{margin-top:8px;padding:7px 8px;border-radius:6px;background:#F1EEE8;font-size:10.5px}.student-prompt{margin-top:6px;padding:7px 8px;border-left:2px solid var(--accent);background:#fff;font-family:'DM Serif Display',serif;font-size:11px;font-style:italic}
+.toggle{border:0;background:none;padding:0;color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}.details{display:none;margin-top:7px}.details.open{display:block}.details ul{list-style:none;padding:0;margin:0}.details li{font-size:11px;color:var(--soft);padding:3px 0 3px 13px;position:relative}.details li:before{content:'→';position:absolute;left:0;color:var(--accent)}.warning{margin-top:7px;background:#FFF3E0;color:#7B4500;border-radius:5px;padding:6px 8px;font-size:10px}.callout{margin-top:13px;padding:10px 12px;border-left:3px solid var(--accent);background:#fff;border-radius:0 7px 7px 0;color:var(--soft);font-size:12px}.na{color:#999;font-style:italic;font-size:12px;background:#F5F3EF;border-radius:6px;padding:12px}.support-note{margin:8px 0 10px;color:var(--soft);font-size:11px}.motivation-card{background:#fff}.motivation-summary:before{content:'Подкрепа';align-self:start;margin-right:3px;padding:1px 5px;border-radius:10px;background:#F1EEE8;color:#725F48;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.motivation-summary{grid-template-columns:auto 1fr auto}.footer{margin:0 48px 34px;padding:15px 17px;background:#fff;border:1px solid var(--rule);border-radius:10px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;color:var(--soft);font-size:11px}.footer h4{margin:0 0 4px;color:var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.07em}
+@media(max-width:900px){header,.context-shell,.stage-bar,.phase-nav,main,.footer{padding-left:16px;padding-right:16px}.phase-nav{grid-template-columns:1fr}.process-grid{grid-template-columns:1fr}.footer{grid-template-columns:1fr}.header-note{text-align:left;margin-left:0}}
 
-/* MOTIVATION & READER CONFIDENCE LAYER */
-.motivation-band{margin:14px 48px 0;border:1px solid #D7B889;border-left:5px solid #B7791F;background:#FFF9EE;border-radius:10px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 15px}
-.motivation-band strong{display:block;font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:#7A4A1E}
-.motivation-band span{display:block;font-size:11px;color:var(--soft);margin-top:2px}
-.motivation-open{border:1px solid #D7B889;background:#fff;color:#7A4A1E;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer}
-.motivation-open:hover,.motivation-open.active{background:#F7E8CA}
-.motivation-intro{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-bottom:14px}
-.motivation-principle{background:#FFF9EE;border:1px solid #E2C79C;border-radius:10px;padding:14px 15px}
-.motivation-principle h3{margin:0 0 5px;font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:#7A4A1E}
-.motivation-principle p{margin:0;color:var(--soft);font-size:12px}
-.motivation-filter{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 14px}
-.motivation-filter button{border:1px solid var(--rule);background:#fff;border-radius:20px;padding:6px 10px;cursor:pointer;color:var(--soft);font-size:11px;font-weight:700}
-.motivation-filter button.active,.motivation-filter button:hover{background:#7A4A1E;color:#fff;border-color:#7A4A1E}
-.motivation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.motivation-card{border:1px solid var(--rule);background:#fff;border-radius:10px;overflow:hidden}
-.motivation-summary{width:100%;border:0;background:transparent;padding:12px 13px;display:grid;grid-template-columns:1fr auto;gap:10px;text-align:left;cursor:pointer}
-.motivation-summary:hover{background:#FFF9EE}
-.motivation-summary strong{display:block;font-size:13px}
-.motivation-summary small{display:block;margin-top:3px;color:var(--soft);font-size:10px}
-.motivation-card.open .motivation-arrow{transform:rotate(90deg)}
-.motivation-arrow{color:#7A4A1E;font-weight:700;transition:transform .2s}
-.motivation-detail{display:none;border-top:1px solid var(--rule);padding:12px 13px;background:#FCFBF9}
-.motivation-card.open .motivation-detail{display:block}
-.motivation-detail h5{margin:10px 0 3px;text-transform:uppercase;letter-spacing:.06em;font-size:9px;color:#7A4A1E}
-.motivation-detail h5:first-child{margin-top:0}
-.motivation-detail p,.motivation-detail li{font-size:11px;color:var(--soft)}
-.motivation-detail p{margin:0}
-.motivation-detail ol{margin:4px 0 0;padding-left:18px}
-.teacher-line{margin-top:9px;padding:8px 10px;background:#FFF4DE;border-left:3px solid #B7791F;border-radius:0 6px 6px 0;font-family:'DM Serif Display',serif;font-style:italic;font-size:12px}
-.avoid-line{margin-top:8px;padding:7px 9px;background:#FFF0ED;border-radius:6px;font-size:10px;color:#8B3A2A}
-.framework-links{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
-.framework-links span{display:inline-block;padding:2px 7px;border-radius:20px;background:#EEEAE3;font-size:9px;font-weight:700;color:var(--soft)}
-@media(max-width:900px){.motivation-band{margin-left:16px;margin-right:16px}.motivation-intro,.motivation-grid{grid-template-columns:1fr}}
-
+.direct-levels{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.direct-levels>div{padding:8px 9px;border:1px solid var(--rule);border-radius:7px;background:var(--bg)}.direct-levels strong{display:block;font-size:10px;color:var(--ink)}.direct-levels span{display:block;font-size:10px;color:var(--soft);margin-top:2px}.phase-nav,body>main,body>.footer{display:none!important}
 </style>
+
+<style id="matrix-overrides">
+.phase-nav, main, .footer{display:none!important}
+.matrix-shell{padding:20px 48px 36px}
+.matrix-intro{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin-bottom:14px;display:flex;gap:18px;align-items:flex-start;justify-content:space-between}
+.matrix-intro h2{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;margin:0 0 4px}.matrix-intro p{margin:0;color:var(--soft);max-width:850px}.matrix-key{font-size:11px;color:var(--soft);white-space:nowrap}
+.reading-matrix{display:grid;grid-template-columns:150px repeat(3,minmax(200px,1fr));border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:#fff}
+.mx-corner,.mx-col,.mx-row,.mx-cell{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.mx-corner{padding:13px;background:var(--bg);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft)}
+.mx-col{padding:13px 14px;background:#fafafa}.mx-col strong{display:block;font-family:'DM Serif Display',serif;font-size:18px;font-weight:400}.mx-col span{font-size:10px;color:var(--soft)}
+.mx-row{padding:14px;background:var(--bg);display:flex;flex-direction:column;justify-content:center}.mx-row strong{font-size:13px}.mx-row span{font-size:10px;color:var(--soft)}
+.mx-cell{padding:0;background:#fff;min-height:112px}.mx-cell:nth-child(4n){border-right:0}.reading-matrix>*:nth-last-child(-n+4){border-bottom:0}
+.mx-btn{width:100%;height:100%;min-height:112px;border:0;background:transparent;padding:13px;text-align:left;cursor:pointer;color:var(--ink)}.mx-btn:hover{background:#faf8f3}.mx-btn.active{background:#fff8e8;box-shadow:inset 0 0 0 2px var(--accent)}
+.mx-action{display:block;font-weight:700;font-size:12px;margin-bottom:5px}.mx-summary{display:block;font-size:10px;line-height:1.45;color:var(--soft)}.mx-count{display:inline-block;margin-top:8px;padding:2px 6px;border-radius:10px;background:var(--bg);font-size:9px;color:var(--soft)}
+.matrix-detail{margin-top:14px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}.matrix-detail-toggle{width:100%;border:0;background:#faf8f3;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;text-align:left;cursor:pointer}.matrix-detail-toggle:hover{background:#F4F0EA}.matrix-detail-toggle h3{font-family:'DM Serif Display',serif;font-size:23px;font-weight:400;margin:0 0 3px}.matrix-detail-toggle p{margin:0;color:var(--soft)}.matrix-detail-arrow{font-size:18px;font-weight:700;color:var(--accent);transition:transform .2s;line-height:1;margin-top:2px}.matrix-detail-body{display:none;padding:17px 18px;border-top:1px solid var(--rule)}.matrix-detail.open .matrix-detail-body{display:block}.matrix-detail.open .matrix-detail-arrow{transform:rotate(90deg)}.detail-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:14px}.detail-card{border:1px solid var(--rule);border-radius:9px;padding:14px;background:#fff}.detail-card h4{font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;color:var(--soft)}
+.detail-example{font-family:'DM Serif Display',serif;font-style:italic;background:var(--bg);padding:10px 12px;border-left:3px solid var(--accent);border-radius:5px;font-size:13px}.detail-list{padding-left:18px;color:var(--soft);font-size:11px}.matrix-strategies{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px}.matrix-products{margin-top:14px}.product-chips{display:flex;flex-wrap:wrap;gap:7px}.product-chip{padding:5px 8px;border:1px solid var(--rule);border-radius:20px;background:var(--bg);font-size:10px}
+.axis-note{margin:14px 0 0;padding:10px 12px;border-left:3px solid var(--l2);background:#fff;border-radius:0 6px 6px 0;color:var(--soft);font-size:11px}
+@media(max-width:1000px){.matrix-shell{padding-left:16px;padding-right:16px}.reading-matrix{grid-template-columns:110px repeat(3,minmax(180px,1fr));overflow-x:auto}.detail-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.matrix-intro{display:block}.matrix-key{margin-top:8px;white-space:normal}.reading-matrix{display:block;border:0;background:transparent}.mx-corner,.mx-col{display:none}.mx-row{border:1px solid var(--rule);border-radius:8px;margin-top:12px}.mx-cell{border:1px solid var(--rule)!important;border-radius:8px;margin-top:7px;min-height:0}.mx-btn{min-height:0}.mx-btn:before{content:attr(data-label);display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:4px}}
+
+.context-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.text-check-toggle{border:1px solid var(--accent);background:#fff7f3;color:var(--accent);border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700}.text-checker{display:none;margin-top:10px;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:15px}.text-checker.open{display:block}.checker-head{display:flex;gap:15px;justify-content:space-between;align-items:flex-start;margin-bottom:12px}.checker-head h3{font-family:'DM Serif Display',serif;font-size:21px;font-weight:400;margin:0 0 3px}.checker-head p{margin:0;color:var(--soft);font-size:11px;max-width:760px}.checker-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px}.checker-field{display:flex;flex-direction:column;gap:4px}.checker-field label{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--soft);font-weight:700}.checker-field input,.checker-field select{border:1px solid var(--rule);border-radius:7px;background:#fff;padding:8px;font:inherit;font-size:12px}.checker-result{margin-top:12px;padding:12px 13px;border-radius:8px;background:#F8F5EF;border-left:3px solid var(--accent)}.checker-result h4{margin:0 0 5px;font-family:'DM Serif Display',serif;font-size:18px;font-weight:400}.checker-result ul{margin:5px 0 0;padding-left:18px;color:var(--soft);font-size:11px}.checker-note{margin-top:8px;color:var(--soft);font-size:10px}.support-section{margin-top:15px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}.support-section-head{display:flex;gap:18px;justify-content:space-between;align-items:center;padding:15px 18px}.support-section-head h2{font-family:'DM Serif Display',serif;font-size:23px;font-weight:400;margin:0 0 2px}.support-section-head p{margin:0;color:var(--soft)}.support-toggle{border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700;color:var(--soft)}.support-section-body{display:none;border-top:1px solid var(--rule);padding:16px 18px}.support-section-body.open{display:block}.support-category{margin-bottom:15px}.support-category:last-child{margin-bottom:0}.support-category h3{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin:0 0 8px}.support-category .support-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+@media(max-width:760px){.context-actions{justify-content:flex-start}.checker-head,.support-section-head{display:block}.support-toggle{margin-top:9px}}
+
+.direct-levels{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.direct-levels>div{padding:8px 9px;border:1px solid var(--rule);border-radius:7px;background:var(--bg)}.direct-levels strong{display:block;font-size:10px;color:var(--ink)}.direct-levels span{display:block;font-size:10px;color:var(--soft);margin-top:2px}.phase-nav,body>main,body>.footer{display:none!important}
+</style>
+
 </head>
 <body>
-<header>
-  <h1>Четивна грамотност<br><em>от целта до действието</em></h1>
-  <div class="header-note">Една обща рамка за преподаване, дизайн на задачи и оценяване — в съответствие с логиката на МОН, PIRLS и PISA.</div>
-</header>
-
-<nav class="question-map" aria-label="Четири въпроса на рамката">
-  <button class="qstep active" data-view="why"><small>1 · Цел</small><strong>Защо чета?</strong><span>Каква е читателската ми задача?</span></button>
-  <button class="qstep" data-view="what"><small>2 · Текст</small><strong>Какво чета?</strong><span>Какъв е текстът и колко е сложен?</span></button>
-  <button class="qstep" data-view="how"><small>3 · Процес</small><strong>Как чета?</strong><span>Как разбирам и управлявам четенето си?</span></button>
-  <button class="qstep" data-view="so-what"><small>4 · Трансфер</small><strong>И какво от това?</strong><span>Как използвам и показвам разбраното?</span></button>
-</nav>
-
-<div class="motivation-band">
-  <div><strong>Желание и увереност за четене</strong><span>Напречен слой: смисъл, избор, преживяване на успех, настойчивост, читателска идентичност и социално четене.</span></div>
-  <button class="motivation-open" type="button" data-open-motivation>Разгледай стратегиите</button>
-</div>
-
-<div class="stage-bar">
-  <button class="stage-tab active" data-stage="primary">Начален етап <small>I–IV клас</small></button>
-  <button class="stage-tab" data-stage="middle">Прогимназия <small>V–VII клас</small></button>
-  <button class="stage-tab" data-stage="high">Гимназия <small>VIII–X клас</small></button>
-</div>
-
-<main>
-<section class="panel active" data-view-panel="why">
-  <div class="intro-card">
-    <h2>Защо чета?</h2>
-    <p>Целта насочва вниманието, избора на стратегия и начина, по който ученикът ще използва прочетеното.</p>
+<header><h1>Четивна грамотност<br>— <em>от текст към разбиране</em></h1><div class="header-note">Практична рамка за избор на текст, планиране на задачи и подкрепа на разбирането — за всеки предмет и клас, преди, по време и след четене.</div></header>
+<section class="context-shell">
+  <div class="context-summary">
+    <div><strong>Какво и защо ще четем?</strong><span id="context-summary-text">Избери етап, цел, тип и формат на текста.</span></div>
+    <div class="context-actions"><button class="text-check-toggle" type="button">Провери текста ▸</button><button class="context-toggle" type="button">Избери ▸</button></div>
   </div>
-  <div class="choice-grid" id="why-grid"></div>
-  <div class="callout"><strong>Принцип:</strong> един и същ текст може да се чете с различна цел. Целта не е характеристика на текста, а на читателската ситуация.</div>
+  <div class="context-drawer" id="context-drawer"></div>
+  <div class="text-checker" id="text-checker"></div>
+</section>
+<div class="stage-bar"><button class="stage-tab active" data-stage="primary">Начален етап <small>I–IV клас</small></button><button class="stage-tab" data-stage="middle">Прогимназия <small>V–VII клас</small></button><button class="stage-tab" data-stage="high">Гимназия <small>VIII–X клас</small></button></div>
+
+<section class="matrix-shell" id="matrix-shell">
+  <div class="matrix-intro">
+    <div><h2>Как четем?</h2><p>Избери <strong>кога работим с текста</strong> и <strong>каква умствена работа</strong> очакваме от учениците. Във всяка клетка ще намериш примерни задачи, стратегии и насоки за подкрепа.</p></div>
+    <div class="matrix-key">Редове: кога работим<br>Колони: как мислим</div>
+  </div>
+  <div class="reading-matrix" id="reading-matrix"></div>
+  <div class="axis-note"><strong>Важно:</strong> „Преди / по време / след“ не са нива на разбиране, а организация на работата. „Намери и свържи / обясни и обобщи / прецени и обоснови“ не са фиксирана последователност и могат да се използват във всеки момент.</div>
+  <section class="matrix-detail" id="matrix-detail"></section>
+  <section class="support-section" id="support-section">
+    <div class="support-section-head"><div><h2>Подкрепа</h2><p>Как създаваме смисъл, избор, увереност и настойчивост?</p></div><button class="support-toggle" type="button">Разгледай ▸</button></div>
+    <div class="support-section-body" id="support-section-body"></div>
+  </section>
 </section>
 
-<section class="panel" data-view-panel="what">
-  <div class="intro-card">
-    <h2>Какво чета?</h2>
-    <p>Избери тип и формат на текста. Сложността се определя отделно — не от етикета „художествен“ или „информационен“.</p>
-  </div>
-  <div id="what-content"></div>
-</section>
-
-<section class="panel" data-view-panel="how">
-  <div class="intro-card">
-    <h2>Как чета?</h2>
-    <p>Едни и същи четири процеса във всички етапи: <strong>Намери → Свържи → Обясни → Прецени</strong>. Прогресията идва от текста, доказателствата, самостоятелността и очаквания отговор.</p>
-  </div>
-  <div id="how-content"></div>
-</section>
-
-<section class="panel" data-view-panel="so-what">
-  <div class="intro-card">
-    <h2>И какво от това?</h2>
-    <p>Разбирането има стойност, когато ученикът може да го покаже, приложи, използва за решение или превърне в нов продукт.</p>
-  </div>
-  <div class="outcome-grid" id="outcome-grid"></div>
-  <div class="callout"><strong>Важно:</strong> резюме, теза, препоръка или CV не са отделен „процес на четене“. Те са продукти, които стъпват върху няколко процеса едновременно.</div>
-</section>
-
-<section class="panel" data-view-panel="motivation">
-  <div class="intro-card">
-    <h2>Как създаваме желание и увереност за четене?</h2>
-    <p>Тези стратегии не заменят стратегиите за разбиране. Те помагат на ученика да поиска да започне, да повярва, че може да се справи, да продължи при трудност и да вижда себе си като читател.</p>
-  </div>
-  <div class="motivation-intro">
-    <article class="motivation-principle"><h3>Учебна цел</h3><p>За какво ще използвам информацията и какъв реален въпрос ще разреша чрез четенето?</p></article>
-    <article class="motivation-principle"><h3>Лична мотивация</h3><p>Защо си струва за мен да положа усилие и какъв избор, успех или принос мога да преживея?</p></article>
-  </div>
-  <div class="control-label">Филтрирай по мотивационна потребност</div>
-  <div class="motivation-filter" id="motivation-filter"></div>
-  <div class="motivation-grid" id="motivation-grid"></div>
-</section>
-
-</main>
-
-<div class="footer">
-  <div><h4>Единна логика</h4>НПП използва рамката за дизайн на текстове и задачи; УП — за преподаване на стратегии; МОН задава очакваните резултати; PIRLS/PISA дават общите когнитивни процеси.</div>
-  <div><h4>Трудност</h4>Лексикална плътност · кохезия · близост до опита · брой източници · разстояние до доказателството · формат на отговора.</div>
-  <div><h4>Постепенно прехвърляне</h4>Моделиране → ръководена практика → съвместна практика → самостоятелно приложение → рефлексия.</div>
-</div>
-
+<nav class="phase-nav"><button class="phase-tab active" data-phase="before"><small>1 · Подготовка</small><strong>Преди четене</strong><span>Смисъл, цел, предварителни знания и план</span></button><button class="phase-tab" data-phase="during"><small>2 · Разбиране</small><strong>По време на четене</strong><span>Намери и свържи · Обясни и обобщи · Прецени и обоснови</span></button><button class="phase-tab" data-phase="after"><small>3 · Използване</small><strong>След четене</strong><span>Приложение, продукт, трансфер и рефлексия</span></button></nav>
+<main><section class="phase-panel active" data-phase-panel="before"><div class="intro-card"><h2>Преди четене: подготвям се</h2><p>Изяснявам целта и смисъла, активирам знанията си, оглеждам текста и избирам подход. Тук стои мотивационното „Защо си струва?“.</p></div><div id="before-content"></div></section><section class="phase-panel" data-phase-panel="during"><div class="intro-card"><h2>По време на четене: изграждам разбиране</h2><p>Трите групи процеси не са последователни фази, а видове умствена работа, които използвам според текста и задачата.</p></div><div id="during-content"></div></section><section class="phase-panel" data-phase-panel="after"><div class="intro-card"><h2>След четене: използвам и осмислям</h2><p>Проверявам разбирането, прилагам прочетеното, създавам продукт и рефлектирам върху начина, по който съм чел.</p></div><div id="after-content"></div></section></main>
+<div class="footer"><div><h4>Организираща рамка</h4>Преди → По време → След четене.</div><div><h4>Когнитивно ядро</h4>Намери и свържи · Обясни и обобщи · Прецени и обоснови.</div><div><h4>Във всеки момент</h4>Смисъл · избор · увереност · подкрепа.</div></div>
 <script>
 const D = {
 
@@ -745,22 +598,24 @@ const STRATEGY_LIBRARY = {
 };
 
 const STRATEGIES = {
+  // Само стратегии, които реално могат да се използват по време на четене.
+  // Стратегиите, които изискват завършен прочит, са преместени в секцията „След четене“.
   primary:{
     p1:['firstQuestions','marking','facts','questions'],
-    p2:['visualise','storyMap','causeEffect','evidence'],
-    p3:['paragraphQuestion','keyword','reverseMap','quoteThought'],
-    p4:['personal','evidence','brainstorm','emotionalWords']
+    p2:['visualise','causeEffect','evidence','questions'],
+    p3:['paragraphQuestion','keyword','quoteThought','evidence'],
+    p4:['evidence','emotionalWords','factOpinion','questions']
   },
   middle:{
     p1:['marking','evidence','firstQuestions','facts'],
-    p2:['causeEffect','storyMap','compareSources','paragraphQuestion'],
-    p3:['quoteThought','reverseMap','otherText','layers'],
+    p2:['causeEffect','compareSources','paragraphQuestion','evidence'],
+    p3:['quoteThought','otherText','compareSources','evidence'],
     p4:['factOpinion','emotionalWords','evidence','argumentMap']
   },
   high:{
     p1:['questions','marking','compareSources','evidence'],
     p2:['compareSources','argumentMap','causeEffect','otherText'],
-    p3:['otherText','layers','quoteThought','reverseMap'],
+    p3:['otherText','quoteThought','compareSources','evidence'],
     p4:['reliability','argumentMap','factOpinion','emotionalWords']
   }
 };
@@ -794,35 +649,6 @@ const MOTIVATION_STRATEGIES = [
   {category:'social',title:'Общ продукт с реална аудитория',barrier:'Прочетеното приключва с оценка и няма видима стойност извън часа.',links:['И какво от това?','Защо чета?'],essence:'Разбирането се използва за продукт, решение или послание към реална аудитория.',steps:['Определете реална аудитория и нужда.','Прочетете подходящи източници.','Изберете важната информация и доказателства.','Създайте продукт.','Получете реакция или използвайте продукта.'],adapt:{primary:'Плакат, препоръка или писмо до друг клас.',middle:'Подкаст, гид, предложение към училището.',high:'Позиция, доклад, кампания или препоръка към институция.'},teacher:'Кой реално ще използва това, което създаваме, и какво трябва да разбере?',avoid:'„Реалната аудитория“ да е измислена, без продуктът действително да бъде споделен.'}
 ];
 
-let motivationCategory='all';
-function renderMotivation(){
-  const stageLabel=STAGES[currentStage].label;
-  document.getElementById('motivation-filter').innerHTML=MOTIVATION_CATEGORIES.map(([id,label])=>`<button type="button" class="${motivationCategory===id?'active':''}" data-motivation-filter="${id}">${label}</button>`).join('');
-  const items=MOTIVATION_STRATEGIES.filter(x=>motivationCategory==='all'||x.category===motivationCategory);
-  document.getElementById('motivation-grid').innerHTML=items.map(x=>`<article class="motivation-card">
-    <button class="motivation-summary" type="button" aria-expanded="false"><span><strong>${x.title}</strong><small>${x.barrier}</small></span><span class="motivation-arrow">▸</span></button>
-    <div class="motivation-detail">
-      <h5>Същност</h5><p>${x.essence}</p>
-      <h5>Как се прилага</h5><ol>${x.steps.map(v=>`<li>${v}</li>`).join('')}</ol>
-      <h5>За избрания етап — ${stageLabel}</h5><p>${x.adapt[currentStage]}</p>
-      <div class="teacher-line">„${x.teacher}“</div>
-      <div class="avoid-line"><strong>Избягвай:</strong> ${x.avoid}</div>
-      <div class="framework-links">${x.links.map(v=>`<span>${v}</span>`).join('')}</div>
-    </div>
-  </article>`).join('');
-  document.querySelectorAll('[data-motivation-filter]').forEach(btn=>btn.addEventListener('click',()=>{motivationCategory=btn.dataset.motivationFilter;renderMotivation();}));
-  document.querySelectorAll('.motivation-summary').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('.motivation-card');card.classList.toggle('open');btn.setAttribute('aria-expanded',card.classList.contains('open')?'true':'false');}));
-}
-
-function openMotivation(){
-  document.querySelectorAll('.qstep').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('[data-view-panel]').forEach(x=>x.classList.remove('active'));
-  document.querySelector('[data-view-panel="motivation"]').classList.add('active');
-  document.querySelector('[data-open-motivation]').classList.add('active');
-  renderMotivation();
-  document.querySelector('[data-view-panel="motivation"]').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
 const OUTCOMES = {
   primary:[
     ['Показвам разбиране','Отговор, подреждане, схема, рисунка, кратък преразказ.',['Ключови факти','Последователност','Основна идея']],
@@ -853,147 +679,146 @@ const PROCESS_META = [
 
 let currentStage='primary';
 const selectedType={primary:'p-hud',middle:'m-nar',high:'h-pub'};
-
-function sourceForProcess(stage,d,key){
-  if(stage==='primary') return d[{p1:'l1',p2:'l2',p3:'l3',p4:'l4'}[key]];
-  // Existing V–X bank used three broad levels. We split its middle level
-  // pedagogically into “Свържи” and “Обясни”, while retaining the examples.
-  return d[{p1:'l1',p2:'l2',p3:'l2',p4:'l3'}[key]];
-}
-
-function extraGuidance(stage,key){
-  if(stage==='primary') return [];
-  if(key==='p2') return ['Фокусирай задачата върху локална връзка: причина–следствие, сравнение на две части или непосредствен извод.'];
-  if(key==='p3') return ['Изисквай цялостен смисъл: обобщение, интегриране на повече части, сравнение или тълкуване.'];
-  return [];
-}
-
-function renderWhy(){
-  document.getElementById('why-grid').innerHTML=WHY[currentStage].map(([t,d])=>`<article class="choice"><strong>${t}</strong><p>${d}</p></article>`).join('');
-}
-
-function renderWhat(){
-  const s=STAGES[currentStage];
-  document.getElementById('what-content').innerHTML=`
-    <div class="context-strip">${s.context.map(([a,b])=>`<div class="context-item"><strong>${a}</strong><span>${b}</span></div>`).join('')}</div>
-    <div class="control-label">Избери текст / формат</div>
-    <div class="type-tabs">${s.types.map(([id,cat,label])=>`<button class="type-btn ${selectedType[currentStage]===id?'active':''}" data-type="${id}">${label}</button>`).join('')}</div>
-    <div class="choice-grid" style="margin-top:14px">
-      <article class="choice"><strong>Цел на текста</strong><p>Литературна · информационна · аргументативна · инструктивна.</p></article>
-      <article class="choice"><strong>Организация и формат</strong><p>Непрекъснат · прекъснат · смесен · множество източници · дигитален.</p></article>
-      <article class="choice"><strong>Жанр / форма</strong><p>Разказ, статия, интервю, инструкция, графика, официален документ и др.</p></article>
-      <article class="choice"><strong>Сложност</strong><p>Лексика, кохезия, познатост, структура, брой източници и визуална организация.</p></article>
-    </div>`;
-  bindTypeButtons();
-}
-
-function renderHow(){
-  const s=STAGES[currentStage], type=selectedType[currentStage], d=D[type];
-  const typeLabel=s.types.find(x=>x[0]===type)?.[2]||type;
-  let note=d?.note?`<div class="callout">${d.note}</div>`:'';
-  document.getElementById('how-content').innerHTML=`
-    <div class="control-row">
-      <div class="control-block"><div class="control-label">Какво чета?</div><div class="type-tabs">${s.types.map(([id,cat,label])=>`<button class="type-btn ${type===id?'active':''}" data-type="${id}">${label}</button>`).join('')}</div></div>
-      <div class="control-block"><div class="control-label">Избрана комбинация</div><div class="context-item"><strong>${s.label}</strong><span>${typeLabel}</span></div></div>
-    </div>
-    ${note}
-    <div class="process-grid">${PROCESS_META.map((pm,i)=>renderProcessCard(pm,i,d)).join('')}</div>`;
-  bindTypeButtons();
-}
-
-function renderProcessCard(pm,i,d){
-  const cd=sourceForProcess(currentStage,d,pm.key);
-  const style=`--pc:${pm.color};--pcs:${pm.soft}`;
-  if(!cd || cd.unavailable){
-    return `<article class="process-card" style="${style}"><div class="process-head"><span class="process-number">${i+1}</span><span class="process-name">${pm.name}</span><span class="process-desc">${pm.desc}</span></div><div class="process-body"><div class="na">${cd?.naText||'Няма пример за тази комбинация в текущата банка.'}</div>${strategyHTML(pm.key)}</div></article>`;
-  }
-  const badges=(cd.diff||[]).map(x=>`<span class="badge ${x}">${{easy:'Лесна',medium:'Оптимална',hard:'Трудна'}[x]}</span>`).join('');
-  const guidance=[...(cd.impl||[]),...extraGuidance(currentStage,pm.key)];
-  const trap=cd.trap?`<div class="warning">${cd.trap}</div>`:'';
-  return `<article class="process-card" style="${style}">
-    <div class="process-head"><span class="process-number">${i+1}</span><span class="process-name">${pm.name}</span><span class="process-desc">${pm.desc}</span></div>
-    <div class="process-body">
-      <div class="badges">${badges}</div>
-      <div class="example">${cd.ex||'—'}</div>
-      ${strategyHTML(pm.key)}
-      <div class="design-box"><button class="toggle" type="button">Как да проектираш задачата ▸</button><div class="details"><ul>${guidance.map(x=>`<li>${x}</li>`).join('')}</ul>${trap}</div></div>
-    </div>
-  </article>`;
-}
-
-function strategyHTML(key){
-  const ids=STRATEGIES[currentStage][key]||[];
-  const cards=ids.map(id=>{
-    const x=STRATEGY_LIBRARY[id];
-    if(!x) return '';
-    const adapt=x.adapt?.[currentStage]||'';
-    const prompt=x.prompt?.[currentStage]||'';
-    return `<article class="strategy-card">
-      <button class="strategy-summary" type="button" aria-expanded="false">
-        <span><strong>${x.title}</strong><span class="strategy-meta">${x.moments}</span></span>
-        <span class="strategy-arrow">▸</span>
-      </button>
-      <div class="strategy-detail">
-        <h5>Същност</h5><p>${x.essence}</p>
-        <h5>Подходяща за</h5><p>${x.suitable}</p>
-        <h5>Как се прилага</h5><ol>${(x.steps||[]).map(v=>`<li>${v}</li>`).join('')}</ol>
-        <h5>Очакван резултат</h5><p>${x.result}</p>
-        <div class="stage-adapt"><strong>За този етап:</strong> ${adapt}</div>
-        <div class="student-prompt">„${prompt}“</div>
-      </div>
-    </article>`;
-  }).join('');
-  return `<div class="strategy-box"><div class="box-title">Стратегии, които подготвят ученика</div><div class="strategy-list">${cards}</div></div>`;
-}
-
-function renderOutcomes(){
-  document.getElementById('outcome-grid').innerHTML=OUTCOMES[currentStage].map(([t,d,items])=>`
-    <article class="outcome-card"><h3>${t}</h3><p>${d}</p><ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('');
-}
-
-function bindExpandableCards(){
-  document.querySelectorAll('.strategy-summary').forEach(btn=>btn.addEventListener('click',()=>{
-    const card=btn.closest('.strategy-card');
-    card.classList.toggle('open');
-    btn.setAttribute('aria-expanded',card.classList.contains('open')?'true':'false');
-  }));
-  document.querySelectorAll('.toggle').forEach(btn=>btn.addEventListener('click',()=>{
-    btn.nextElementSibling.classList.toggle('open');
-    btn.textContent=btn.nextElementSibling.classList.contains('open')?'Скрий насоките ▾':'Как да проектираш задачата ▸';
-  }));
-}
-
-function renderAll(){
-  renderWhy();renderWhat();renderHow();renderOutcomes();renderMotivation();
-  bindExpandableCards();
-}
-
-function bindTypeButtons(){
-  document.querySelectorAll('.type-btn').forEach(btn=>btn.addEventListener('click',()=>{
-    selectedType[currentStage]=btn.dataset.type;
-    renderWhat();renderHow();
-    bindExpandableCards();
-  }));
-}
-
-document.querySelectorAll('.qstep').forEach(btn=>btn.addEventListener('click',()=>{
-  document.querySelectorAll('.qstep').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('[data-view-panel]').forEach(x=>x.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelector('[data-open-motivation]').classList.remove('active');
-  document.querySelector(`[data-view-panel="${btn.dataset.view}"]`).classList.add('active');
-}));
-
-document.querySelectorAll('.stage-tab').forEach(btn=>btn.addEventListener('click',()=>{
-  currentStage=btn.dataset.stage;
-  document.querySelectorAll('.stage-tab').forEach(x=>x.classList.remove('active'));
-  btn.classList.add('active');
-  renderAll();
-}));
-
-document.querySelector('[data-open-motivation]').addEventListener('click',openMotivation);
-
+const PHASE_SUPPORT={
+  before:['Защо това може да ми е важно?','Избери какво да прочетеш','Лична читателска цел','Първа успешна стъпка'],
+  during:['Какво правя, когато не разбирам?','Помощ на стъпки','Трудно, но постижимо','Четене по двойки с роли'],
+  after:['Виж как вече можеш','Избери как да покажеш разбирането си','Аз като читател','Общ продукт с реална аудитория']
+};
+const beforeStrategies={primary:['questions','firstQuestions','personal'],middle:['questions','firstQuestions','personal'],high:['questions','reliability','compareSources']};
+const afterStrategies={
+  primary:['storyMap','personal','brainstorm','keyword'],
+  middle:['reverseMap','personal','otherText','brainstorm'],
+  high:['layers','reverseMap','otherText','brainstorm']
+};
+function sourceForProcess(stage,d,key){if(stage==='primary')return d[{p1:'l1',p2:'l2',p3:'l3',p4:'l4'}[key]];return d[{p1:'l1',p2:'l2',p3:'l2',p4:'l3'}[key]];}
+function extraGuidance(stage,key){if(stage==='primary')return[];if(key==='p2')return['Фокусирай задачата върху локална връзка: причина–следствие, сравнение на две части или непосредствен извод.'];if(key==='p3')return['Изисквай цялостен смисъл: обобщение, интегриране на повече части, сравнение или тълкуване.'];return[];}
+function renderContext(){const s=STAGES[currentStage],type=selectedType[currentStage],label=s.types.find(x=>x[0]===type)?.[2]||type;document.getElementById('context-summary-text').textContent=`${s.label} · ${label} · целта и сложността се задават според конкретната читателска ситуация`;document.getElementById('context-drawer').innerHTML=`<div class="context-grid">${s.context.map(([a,b])=>`<div class="context-item"><strong>${a}</strong><span>${b}</span></div>`).join('')}<div class="context-item"><strong>Защо чета?</strong><span>За преживяване · информация · решение · оценка · действие</span></div><div class="context-item"><strong>Подходящ ли е текстът?</strong><span>Използвай бутона „Провери текста“ за работни ориентири за дължина, нови думи, термини, формат и подкрепа.</span></div></div><div class="section-title">Избери тип и формат на текста</div><div class="type-tabs">${s.types.map(([id,c,l])=>`<button class="type-btn ${type===id?'active':''}" data-type="${id}">${l}</button>`).join('')}</div>`;bindTypeButtons();}
+function strategyCard(id){const x=STRATEGY_LIBRARY[id];if(!x)return'';const adapt=x.adapt?.[currentStage]||'',prompt=x.prompt?.[currentStage]||'';return `<article class="strategy-card"><button class="strategy-summary" type="button"><span><strong>${x.title}</strong><span class="strategy-meta">${x.moments}</span></span><span class="strategy-arrow">▸</span></button><div class="strategy-detail"><h5>Същност</h5><p>${x.essence}</p><h5>Подходяща за</h5><p>${x.suitable}</p><h5>Как се прилага</h5><ol>${(x.steps||[]).map(v=>`<li>${v}</li>`).join('')}</ol><h5>Очакван резултат</h5><p>${x.result}</p><div class="stage-adapt"><strong>За този етап:</strong> ${adapt}</div><div class="student-prompt">„${prompt}“</div></div></article>`;}
+function motivationCard(x){return `<article class="motivation-card"><button class="motivation-summary" type="button"><span><strong>${x.title}</strong><small>${x.barrier}</small></span><span class="strategy-arrow">▸</span></button><div class="motivation-detail"><h5>Същност</h5><p>${x.essence}</p><h5>Как се прилага</h5><ol>${x.steps.map(v=>`<li>${v}</li>`).join('')}</ol><h5>За този етап</h5><p>${x.adapt[currentStage]}</p><div class="student-prompt">„${x.teacher}“</div><h5>Избягвай</h5><p>${x.avoid}</p></div></article>`;}
+function phaseSupport(phase){const titles=PHASE_SUPPORT[phase]||[];const items=titles.map(t=>MOTIVATION_STRATEGIES.find(x=>x.title===t)).filter(Boolean);return `<div class="support-grid">${items.map(motivationCard).join('')}</div>`;}
+function renderBefore(){const why=WHY[currentStage];document.getElementById('before-content').innerHTML=`<div class="section-title">1. Изясни целта, смисъла и избора</div><div class="choice-grid">${why.map(([t,d])=>`<article class="choice"><strong>${t}</strong><p>${d}</p></article>`).join('')}</div><div class="support-note">Подкрепите за желание и уверен старт са част от подготовката, а не отделна рамка.</div>${phaseSupport('before')}<div class="section-title">2. Активирай знанията и подготви начина на четене</div><div class="strategy-grid">${beforeStrategies[currentStage].map(strategyCard).join('')}</div>`;bindExpandables();}
+function renderDuring(){const type=selectedType[currentStage],d=D[type],note=d?.note?`<div class="callout">${d.note}</div>`:'';document.getElementById('during-content').innerHTML=`${note}<div class="process-grid">${PROCESS_META.map((pm,i)=>renderProcessCard(pm,i,d)).join('')}</div><div class="section-title">Подкрепа, когато разбирането се затрудни</div><div class="support-note">Тези действия поддържат усилието и помагат на ученика да продължи да работи с текста.</div>${phaseSupport('during')}`;bindExpandables();}
+function renderProcessCard(pm,i,d){const cd=sourceForProcess(currentStage,d,pm.key),style=`--pc:${pm.color};--pcs:${pm.soft}`;if(!cd||cd.unavailable)return `<article class="process-card" style="${style}"><div class="process-head"><span class="process-number">${i+1}</span><span class="process-name">${pm.name}</span><span class="process-desc">${pm.desc}</span></div><div class="process-body"><div class="na">${cd?.naText||'Няма пример за тази комбинация.'}</div></div></article>`;const labels={easy:'Лесна',medium:'Оптимална',hard:'Трудна'};const badges=(cd.diff||[]).map(x=>`<span class="badge ${x}">${labels[x]}</span>`).join('');const guidance=[...(cd.impl||[]),...extraGuidance(currentStage,pm.key)],trap=cd.trap?`<div class="warning">${cd.trap}</div>`:'';const ids=STRATEGIES[currentStage][pm.key]||[];return `<article class="process-card" style="${style}"><div class="process-head"><span class="process-number">${i+1}</span><span class="process-name">${pm.name}</span><span class="process-desc">${pm.desc}</span></div><div class="process-body"><div class="badges">${badges}</div><div class="example">${cd.ex||'—'}</div><div class="section-title">Подходящи стратегии</div><div class="strategy-grid">${ids.map(strategyCard).join('')}</div><div style="margin-top:10px"><button class="toggle" type="button">Как да проектираш задачата ▸</button><div class="details"><ul>${guidance.map(x=>`<li>${x}</li>`).join('')}</ul>${trap}</div></div></div></article>`;}
+function renderAfter(){document.getElementById('after-content').innerHTML=`<div class="section-title">1. Използвай прочетеното</div><div class="outcome-grid">${OUTCOMES[currentStage].map(([t,d,items])=>`<article class="outcome-card"><h3>${t}</h3><p>${d}</p><ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('')}</div><div class="section-title">2. Направи резултата, избора и напредъка видими</div><div class="support-note">Увереността се изгражда чрез реален продукт, избор, обратна връзка и доказателства за напредък.</div>${phaseSupport('after')}<div class="section-title">3. Обобщи, пренеси и рефлектирай</div><div class="strategy-grid">${afterStrategies[currentStage].map(strategyCard).join('')}</div><div class="callout"><strong>Разграничение:</strong> „Прецени“ е процес на разбиране; резюмето, препоръката, решението или новият текст са продукти, които използват един или повече процеси.</div>`;bindExpandables();}
+function bindExpandables(){document.querySelectorAll('.strategy-summary,.motivation-summary').forEach(btn=>{btn.onclick=()=>btn.closest('.strategy-card,.motivation-card').classList.toggle('open')});document.querySelectorAll('.toggle').forEach(btn=>{btn.onclick=()=>{btn.nextElementSibling.classList.toggle('open');btn.textContent=btn.nextElementSibling.classList.contains('open')?'Скрий насоките ▾':'Как да проектираш задачата ▸';}});}
+function bindTypeButtons(){document.querySelectorAll('.type-btn').forEach(btn=>btn.onclick=()=>{selectedType[currentStage]=btn.dataset.type;renderContext();renderDuring();});}
+function renderAll(){renderContext();renderBefore();renderDuring();renderAfter();}
+document.querySelector('.context-toggle').onclick=()=>{const d=document.getElementById('context-drawer');d.classList.toggle('open');document.querySelector('.context-toggle').textContent=d.classList.contains('open')?'Затвори ▾':'Избери ▸';};
+document.querySelectorAll('.phase-tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.phase-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase-panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelector(`[data-phase-panel="${btn.dataset.phase}"]`).classList.add('active');});
+document.querySelectorAll('.stage-tab').forEach(btn=>btn.onclick=()=>{currentStage=btn.dataset.stage;document.querySelectorAll('.stage-tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderAll();});
 renderAll();
+
 </script>
+
+<script id="matrix-script">
+const MATRIX_PHASES=[
+  {id:'before',name:'Преди четене',sub:'Подготовка, ориентиране и прогнозиране'},
+  {id:'during',name:'По време на четене',sub:'Изграждане и наблюдение на разбирането'},
+  {id:'after',name:'След четене',sub:'Проверка, интегриране и използване'}
+];
+const MATRIX_PROCESSES=[
+  {id:'direct',name:'Намери и свържи',sub:'извличане и непосредствен извод'},
+  {id:'interpret',name:'Обясни и обобщи',sub:'интерпретиране и интегриране'},
+  {id:'evaluate',name:'Прецени и обоснови',sub:'оценяване и рефлексия'}
+];
+const MATRIX_CELLS={
+  before:{
+    direct:{action:'Огледай, открий и свържи първите ориентири',summary:'Открий заглавие, автор, подзаглавия, ключови думи и визуални елементи; свържи ги с предварителни знания и очаквания.',strategies:['firstQuestions','marking','questions','personal'],prompt:'Какво виждам още преди същинското четене и с какво вече познато мога да го свържа?'},
+    interpret:{action:'Формулирай очакване и читателска цел',summary:'Изгради предварителна хипотеза за темата, основната идея, структурата или въпроса, на който текстът може да отговори.',strategies:['questions','firstQuestions','otherText'],prompt:'Какво очаквам текстът да обясни и по какво ще проверя първоначалната си хипотеза?'},
+    evaluate:{action:'Прецени източника, целта и задачата',summary:'Оцени кой е създал текста, за кого, с каква цел и какво ще трябва да провериш критично.',strategies:['reliability','factOpinion'],prompt:'Кой стои зад текста, каква може да е целта му и какво не бива да приемам автоматично?'}
+  },
+  during:{
+    direct:{action:'Намери информацията и направи непосредствения извод',summary:'Откривай факти, детайли, термини, цитати и стойности; свързвай близки текстови следи, за да изведеш проста причина, последица или отношение.',strategies:['marking','facts','evidence','causeEffect'],prompt:'Какво е казано директно и кои близки части трябва да свържа, за да направя непосредствения извод?'},
+    interpret:{action:'Обяснявай, интегрирай и обобщавай',summary:'Свързвай повече части и носители, тълкувай думи, образи и отношения, определяй основната идея и изграждай цялостен смисъл.',strategies:['paragraphQuestion','keyword','quoteThought','visualise','otherText'],prompt:'Как бих обяснил смисъла със свои думи и как отделните части изграждат цялото?'},
+    evaluate:{action:'Проверявай твърдения, аргументи и източници',summary:'Разграничавай факт, мнение и внушение; преценявай качеството, достатъчността и надеждността на доказателствата.',strategies:['factOpinion','evidence','emotionalWords','reliability'],prompt:'Убедително ли е твърдението и на какви текстови доказателства основавам преценката си?'}
+  },
+  after:{
+    direct:{action:'Избери ключовата информация и възстанови връзките',summary:'Върни се към текста, отдели съществените доказателства и покажи непосредствените връзки, необходими за отговора или продукта.',strategies:['facts','keyword','evidence','storyMap'],prompt:'Коя информация е най-важна за целта ми и как се свързват ключовите текстови следи?'},
+    interpret:{action:'Изгради цялостно обяснение или обобщение',summary:'Интегрирай идеите, сравни текстове или формати и представи разбирането си чрез обобщение, интерпретация, схема, преразказ или резюме.',strategies:['storyMap','reverseMap','brainstorm','layers','otherText'],prompt:'Как мога ясно и точно да представя най-важния смисъл и отношенията между идеите?'},
+    evaluate:{action:'Оцени и обоснови позицията си',summary:'Прецени съдържанието, формата, достоверността и въздействието; аргументирай позицията си и рефлектирай върху промяната в собственото разбиране.',strategies:['quoteThought','emotionalWords','layers','reliability','factOpinion'],prompt:'Какво приемам или оспорвам, по какъв критерий и с кои доказателства от текста?'}
+  }
+};
+const MATRIX_PRODUCTS={
+  primary:['кратък отговор','преразказ','рисунка или схема','мнение с причина','прилагане на инструкция'],
+  middle:['обобщение','аргументиран отговор','съпоставка','решение на проблем','препоръка'],
+  high:['резюме','аналитичен отговор','теза и аргументи','оценка на източници','решение или собствен текст']
+};
+let activeMatrixCell={phase:'during',process:'direct'};
+function matrixProcessSource(process){
+ const type=selectedType[currentStage],d=D[type]; if(!d)return null;
+ if(process==='direct'){
+   const a=sourceForProcess(currentStage,d,'p1'), b=sourceForProcess(currentStage,d,'p2');
+   if((!a||a.unavailable)&&(!b||b.unavailable))return null;
+   return {diff:[...new Set([...(a?.diff||[]),...(b?.diff||[])])],ex:`<strong>Намери — пряко в текста:</strong><br>${a?.ex||'—'}<br><br><strong>Свържи — непосредствен извод:</strong><br>${b?.ex||'—'}`,impl:[...'Намери: отговорът е изрично представен; насочи към точната текстова следа.'.split('|'),...'Свържи: отговорът следва непосредствено от една или няколко близки следи.'.split('|'),...(a?.impl||[]),...(b?.impl||[])]};
+ }
+ const key=process==='interpret'?'p3':'p4'; return sourceForProcess(currentStage,d,key);
+}
+function renderMatrix(){
+ const root=document.getElementById('reading-matrix'); if(!root)return;
+ let h='<div class="mx-corner">Момент × процес</div>'+MATRIX_PROCESSES.map(p=>`<div class="mx-col"><strong>${p.name}</strong><span>${p.sub}</span></div>`).join('');
+ MATRIX_PHASES.forEach(ph=>{h+=`<div class="mx-row"><strong>${ph.name}</strong><span>${ph.sub}</span></div>`;MATRIX_PROCESSES.forEach(pr=>{const c=MATRIX_CELLS[ph.id][pr.id],active=activeMatrixCell.phase===ph.id&&activeMatrixCell.process===pr.id;h+=`<div class="mx-cell"><button class="mx-btn ${active?'active':''}" data-phase="${ph.id}" data-process="${pr.id}" data-label="${pr.name}"><span class="mx-action">${c.action}</span><span class="mx-summary">${c.summary}</span><span class="mx-count">${c.strategies.length} стратегии</span></button></div>`;});});
+ root.innerHTML=h; root.querySelectorAll('.mx-btn').forEach(b=>b.onclick=()=>{activeMatrixCell={phase:b.dataset.phase,process:b.dataset.process};renderMatrix();renderMatrixDetail();});
+}
+let matrixDetailOpen=true;
+function renderMatrixDetail(){
+ const ph=MATRIX_PHASES.find(x=>x.id===activeMatrixCell.phase),pr=MATRIX_PROCESSES.find(x=>x.id===activeMatrixCell.process),c=MATRIX_CELLS[ph.id][pr.id],cd=matrixProcessSource(pr.id),box=document.getElementById('matrix-detail'); if(!box)return;
+ const stageLabel=STAGES[currentStage].label, typeLabel=STAGES[currentStage].types.find(x=>x[0]===selectedType[currentStage])?.[2]||'';
+ const example=cd&&!cd.unavailable&&cd.ex?cd.ex:`„${c.prompt}“`;
+ const guidance=cd&&!cd.unavailable?(cd.impl||[]):[];
+ box.className=`matrix-detail ${matrixDetailOpen?'open':''}`.trim();
+ box.innerHTML=`<button class="matrix-detail-toggle" type="button" aria-expanded="${matrixDetailOpen?'true':'false'}"><span><h3>${ph.name} × ${pr.name}</h3><p>${c.action} · ${stageLabel} · ${typeLabel}</p></span><span class="matrix-detail-arrow">▸</span></button><div class="matrix-detail-body"><div class="detail-grid"><div class="detail-card"><h4>Какво прави ученикът</h4><p>${c.summary}</p>${pr.id==='direct'?'<div class="direct-levels"><div><strong>Намери</strong><span>Отговорът е изрично представен.</span></div><div><strong>Свържи</strong><span>Отговорът следва непосредствено от текстови следи.</span></div></div>':''}<h4 style="margin-top:13px">Примерна инструкция или задача</h4><div class="detail-example">${example}</div></div><div class="detail-card"><h4>Как да я проектираш</h4>${guidance.length?`<ul class="detail-list">${guidance.map(x=>`<li>${x}</li>`).join('')}</ul>`:`<p style="color:var(--soft);font-size:11px">Използвай задачата, за да активираш процеса в този конкретен момент, без да предполагаш, че процесът принадлежи само на тази фаза.</p>`}</div></div><div class="section-title">Подходящи стратегии</div><div class="matrix-strategies">${c.strategies.map(strategyCard).join('')}</div><div class="matrix-products"><div class="section-title">Възможни резултати и продукти</div><div class="product-chips">${MATRIX_PRODUCTS[currentStage].map(x=>`<span class="product-chip">${x}</span>`).join('')}</div></div></div>`;
+ const toggle=box.querySelector('.matrix-detail-toggle');
+ if(toggle) toggle.onclick=()=>{matrixDetailOpen=!matrixDetailOpen; renderMatrixDetail();};
+ bindExpandables();
+}
+
+const TEXT_GUIDES={
+  primary:{label:'Начален етап',core:[150,400],extended:[400,600],terms:[2,4]},
+  middle:{label:'Прогимназия',core:[350,650],extended:[650,1000],terms:[3,6]},
+  high:{label:'Гимназия',core:[500,900],extended:[900,1400],terms:[4,8]}
+};
+const SUPPORT_CATEGORY_LABELS={meaning:'Смисъл и лична значимост',choice:'Избор и автономия',confidence:'Увереност и видим напредък',persistence:'Настойчивост при трудност',identity:'Читателска идентичност',social:'Социално четене'};
+function renderTextChecker(){
+ const g=TEXT_GUIDES[currentStage]; const box=document.getElementById('text-checker'); if(!box)return;
+ box.innerHTML=`<div class="checker-head"><div><h3>Провери текста</h3><p>Въведи приблизителни характеристики. Резултатът е педагогически ориентир, а не автоматична присъда или твърда норма.</p></div></div><div class="checker-grid">
+ <div class="checker-field"><label>Брой думи</label><input id="tc-words" type="number" min="0" placeholder="напр. 420"></div>
+ <div class="checker-field"><label>Вероятно непознати думи</label><input id="tc-unknown" type="number" min="0" placeholder="напр. 12"></div>
+ <div class="checker-field"><label>Нови ключови термини</label><input id="tc-terms" type="number" min="0" placeholder="напр. 5"></div>
+ <div class="checker-field"><label>Начин на четене</label><select id="tc-mode"><option value="guided">Ръководено</option><option value="independent">Самостоятелно</option></select></div>
+ <div class="checker-field"><label>Формат</label><select id="tc-format"><option value="continuous">Един непрекъснат текст</option><option value="mixed">Смесен: текст + таблица/диаграма</option><option value="multiple">Няколко източника</option></select></div>
+ <div class="checker-field"><label>Познатост на темата</label><select id="tc-familiar"><option value="familiar">По-скоро позната</option><option value="mixed">Частично позната</option><option value="unfamiliar">Непозната/абстрактна</option></select></div>
+ </div><div class="checker-result" id="checker-result"><h4>Въведи данни за текста</h4><p style="margin:0;color:var(--soft);font-size:11px">Ще получиш ориентир за дължина, лексикално натоварване, термини и необходима подкрепа.</p></div><div class="checker-note">Работни ориентири за ${g.label}: обичаен основен текст около ${g.core[0]}–${g.core[1]} думи; по-дълъг текст до около ${g.extended[1]} думи е възможен при разделяне на части, повече време или подкрепа.</div>`;
+ ['tc-words','tc-unknown','tc-terms','tc-mode','tc-format','tc-familiar'].forEach(id=>document.getElementById(id)?.addEventListener('input',updateTextCheck));
+}
+function updateTextCheck(){
+ const g=TEXT_GUIDES[currentStage],words=Number(document.getElementById('tc-words')?.value||0),unknown=Number(document.getElementById('tc-unknown')?.value||0),terms=Number(document.getElementById('tc-terms')?.value||0),mode=document.getElementById('tc-mode')?.value,format=document.getElementById('tc-format')?.value,familiar=document.getElementById('tc-familiar')?.value,items=[];
+ if(!words){document.getElementById('checker-result').innerHTML='<h4>Добави поне броя думи</h4><p style="margin:0;color:var(--soft);font-size:11px">След това ще видиш конкретни ориентири.</p>';return;}
+ let level='Вероятно подходящ';
+ if(words<g.core[0])items.push(`Текстът е кратък за обичаен основен прочит в ${g.label.toLowerCase()}. Това може да е напълно подходящо за фокусирана задача или по-малък откъс.`);
+ else if(words<=g.core[1])items.push(`Дължината е в работния диапазон ${g.core[0]}–${g.core[1]} думи за основен текст.`);
+ else if(words<=g.extended[1]){items.push(`Текстът е по-дълъг от обичайния основен диапазон. Раздели го на смислови части или осигури повече време.`);level='Подходящ с подкрепа';}
+ else{items.push(`Текстът е значително по-дълъг от работния ориентир. Използвай откъс, работа на части или поредица от четения.`);level='Нужна е сериозна адаптация';}
+ if(unknown>0){const pct=unknown/words*100;items.push(`${unknown} вероятно непознати думи са около ${pct.toFixed(1)}% от текста — приблизително една на ${Math.max(1,Math.round(words/unknown))} думи.`);if(mode==='independent'&&pct>2){items.push('За самостоятелно четене лексикалното натоварване вероятно е високо: замени несъществените трудни думи или дай речникова опора.');level=level==='Вероятно подходящ'?'Подходящ с подкрепа':level;}else if(pct>5){items.push('За ръководено четене това също е високо натоварване. Предварително въведи ключовите думи и провери кои могат да се изведат от контекста.');level='Нужна е сериозна адаптация';}}
+ if(terms>g.terms[1]){items.push(`${terms} нови ключови термина са много за един прочит. Определи кои ${g.terms[0]}–${g.terms[1]} са задължителни, а останалите раздели между части или уроци.`);level=level==='Вероятно подходящ'?'Подходящ с подкрепа':level;}else if(terms>=g.terms[0])items.push(`Броят нови ключови термини е в разумен работен диапазон (${g.terms[0]}–${g.terms[1]}), ако са обяснени и използвани повторно.`);
+ if(format==='mixed')items.push('Смесеният формат изисква изрично да научиш учениците как да свързват текста с таблицата или диаграмата.');
+ if(format==='multiple'){items.push('Няколко източника увеличават навигацията и интегрирането. Уточни какво се търси във всеки източник и дали се допълват или противоречат.');level=level==='Вероятно подходящ'?'Подходящ с подкрепа':level;}
+ if(familiar==='unfamiliar'){items.push('Темата е непозната или абстрактна: активирай предварителни знания, дай кратък контекст и пример преди същинското четене.');level=level==='Вероятно подходящ'?'Подходящ с подкрепа':level;}else if(familiar==='mixed')items.push('Провери какви предварителни знания могат реално да се приемат и кои трябва да бъдат въведени.');
+ document.getElementById('checker-result').innerHTML=`<h4>${level}</h4><ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+}
+function renderSupportSection(){
+ const box=document.getElementById('support-section-body'); if(!box)return;
+ const order=['meaning','choice','confidence','persistence','identity','social'];
+ box.innerHTML=`<div class="support-note">Тези стратегии не са отделен етап от четенето. Те създават условия ученикът да започне, да продължи и да използва прочетеното.</div>`+order.map(cat=>{const items=MOTIVATION_STRATEGIES.filter(x=>x.category===cat);return `<section class="support-category"><h3>${SUPPORT_CATEGORY_LABELS[cat]}</h3><div class="support-grid">${items.map(motivationCard).join('')}</div></section>`}).join('');
+ bindExpandables();
+}
+
+function refreshMatrix(){renderMatrix();renderMatrixDetail();renderTextChecker();renderSupportSection();}
+document.addEventListener('click',e=>{if(e.target.closest('.stage-tab')||e.target.closest('.type-btn'))setTimeout(refreshMatrix,0);});
+
+document.querySelector('.text-check-toggle').onclick=()=>{const b=document.getElementById('text-checker');b.classList.toggle('open');document.querySelector('.text-check-toggle').textContent=b.classList.contains('open')?'Затвори проверката ▾':'Провери текста ▸';if(b.classList.contains('open'))renderTextChecker();};
+document.querySelector('.support-toggle').onclick=()=>{const b=document.getElementById('support-section-body');b.classList.toggle('open');document.querySelector('.support-toggle').textContent=b.classList.contains('open')?'Скрий ▾':'Разгледай ▸';if(b.classList.contains('open'))renderSupportSection();};
+refreshMatrix();
+</script>
+
 </body>
 </html>
