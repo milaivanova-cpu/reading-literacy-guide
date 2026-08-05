@@ -19,6 +19,8 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
 @media(max-width:900px){header,.context-shell,.stage-bar,.phase-nav,main,.footer{padding-left:16px;padding-right:16px}.phase-nav{grid-template-columns:1fr}.process-grid{grid-template-columns:1fr}.footer{grid-template-columns:1fr}.header-note{text-align:left;margin-left:0}}
 
 .direct-levels{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.direct-levels>div{padding:8px 9px;border:1px solid var(--rule);border-radius:7px;background:var(--bg)}.direct-levels strong{display:block;font-size:10px;color:var(--ink)}.direct-levels span{display:block;font-size:10px;color:var(--soft);margin-top:2px}.phase-nav,body>main,body>.footer{display:none!important}
+
+.teacher-supports{margin-top:15px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}.teacher-supports-head{width:100%;border:0;background:#faf8f3;padding:15px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;text-align:left;cursor:pointer}.teacher-supports-head:hover{background:#F4F0EA}.teacher-supports-head h2{font-family:'DM Serif Display',serif;font-size:23px;font-weight:400;margin:0 0 2px}.teacher-supports-head p{margin:0;color:var(--soft);font-size:11px}.teacher-supports-arrow{color:var(--accent);font-size:18px;font-weight:700;transition:transform .2s}.teacher-supports.open .teacher-supports-arrow{transform:rotate(90deg)}.teacher-supports-body{display:none;border-top:1px solid var(--rule);padding:14px 18px 18px}.teacher-supports.open .teacher-supports-body{display:block}.teacher-supports-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.teacher-supports-tab{border:1px solid var(--rule);background:var(--bg);border-radius:999px;padding:7px 11px;cursor:pointer;font-weight:700;color:var(--soft);font-size:11px}.teacher-supports-tab.active{background:#fff8e8;border-color:var(--accent);color:var(--ink)}.teacher-supports-panel{display:none}.teacher-supports-panel.active{display:block}.teacher-supports-panel-intro{margin:0 0 11px;color:var(--soft);font-size:11px}.teacher-supports .strategy-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.teacher-supports .teaching-grid{grid-template-columns:repeat(auto-fit,minmax(245px,1fr))}@media(max-width:1000px){.teacher-supports .strategy-tools-grid{grid-template-columns:1fr}}@media(max-width:760px){.teacher-supports-head{display:flex}.teacher-supports-tabs{display:grid;grid-template-columns:1fr}.teacher-supports-tab{text-align:left}}
 </style>
 
 <style id="matrix-overrides">
@@ -37,6 +39,9 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
 .matrix-detail{margin-top:14px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}.matrix-detail-toggle{width:100%;border:0;background:#faf8f3;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;text-align:left;cursor:pointer}.matrix-detail-toggle:hover{background:#F4F0EA}.matrix-detail-toggle h3{font-family:'DM Serif Display',serif;font-size:23px;font-weight:400;margin:0 0 3px}.matrix-detail-toggle p{margin:0;color:var(--soft)}.matrix-detail-arrow{font-size:18px;font-weight:700;color:var(--accent);transition:transform .2s;line-height:1;margin-top:2px}.matrix-detail-body{display:none;padding:17px 18px;border-top:1px solid var(--rule)}.matrix-detail.open .matrix-detail-body{display:block}.matrix-detail.open .matrix-detail-arrow{transform:rotate(90deg)}.detail-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:14px}.detail-card{border:1px solid var(--rule);border-radius:9px;padding:14px;background:#fff}.detail-card h4{font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;color:var(--soft)}
 .detail-example{font-family:'DM Serif Display',serif;font-style:italic;background:var(--bg);padding:10px 12px;border-left:3px solid var(--accent);border-radius:5px;font-size:13px}.detail-list{padding-left:18px;color:var(--soft);font-size:11px}.matrix-strategies{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px}.matrix-products{margin-top:14px}.product-chips{display:flex;flex-wrap:wrap;gap:7px}.product-chip{padding:5px 8px;border:1px solid var(--rule);border-radius:20px;background:var(--bg);font-size:10px}
 .axis-note{margin:14px 0 0;padding:10px 12px;border-left:3px solid var(--l2);background:#fff;border-radius:0 6px 6px 0;color:var(--soft);font-size:11px}
+
+.strategy-tools-section{margin-top:14px;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}.strategy-tools-head{padding:15px 17px;background:#faf8f3;display:flex;justify-content:space-between;align-items:center;gap:14px}.strategy-tools-head h2{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin:0}.strategy-tools-head p{margin:3px 0 0;color:var(--soft);font-size:11px}.strategy-tools-toggle{border:0;background:transparent;color:var(--accent);font-weight:700;cursor:pointer}.strategy-tools-body{display:none;padding:16px 17px;border-top:1px solid var(--rule)}.strategy-tools-body.open{display:block}.strategy-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.strategy-tool-card{border:1px solid var(--rule);border-radius:9px;padding:13px;background:#fff}.strategy-tool-card h3{margin:0 0 6px;font-size:13px}.strategy-tool-card p{margin:0 0 8px;color:var(--soft);font-size:11px;line-height:1.45}.strategy-tool-card ol,.strategy-tool-card ul{margin:0;padding-left:18px;color:var(--soft);font-size:11px;line-height:1.5}.self-check{margin-top:9px;display:grid;gap:6px}.self-check label{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--soft)}.self-check input{margin-top:2px}.repair-cycle{margin-top:9px;padding:8px 10px;border-left:3px solid var(--accent);background:var(--bg);font-size:11px;color:var(--ink)}
+@media(max-width:1000px){.strategy-tools-grid{grid-template-columns:1fr}}
 @media(max-width:1000px){.matrix-shell{padding-left:16px;padding-right:16px}.reading-matrix{grid-template-columns:110px repeat(3,minmax(180px,1fr));overflow-x:auto}.detail-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.matrix-intro{display:block}.matrix-key{margin-top:8px;white-space:normal}.reading-matrix{display:block;border:0;background:transparent}.mx-corner,.mx-col{display:none}.mx-row{border:1px solid var(--rule);border-radius:8px;margin-top:12px}.mx-cell{border:1px solid var(--rule)!important;border-radius:8px;margin-top:7px;min-height:0}.mx-btn{min-height:0}.mx-btn:before{content:attr(data-label);display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:4px}}
 
@@ -49,6 +54,7 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
 </head>
 <body>
 <header><h1>Четивна грамотност<br>— <em>от текст към разбиране</em></h1><div class="header-note">Практична рамка за избор на текст, планиране на задачи и подкрепа на разбирането — за всеки предмет и клас, преди, по време и след четене.</div></header>
+<div class="stage-bar"><button class="stage-tab active" data-stage="primary">Начален етап <small>I–IV клас</small></button><button class="stage-tab" data-stage="middle">Прогимназия <small>V–VII клас</small></button><button class="stage-tab" data-stage="high">Гимназия <small>VIII–X клас</small></button></div>
 <section class="context-shell">
   <div class="context-summary">
     <div><strong>Какво и защо ще четем?</strong><span id="context-summary-text">Определи целта и вида на текста и провери дали е достъпен за конкретните ученици.</span></div>
@@ -57,7 +63,6 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
   <div class="context-drawer" id="context-drawer"></div>
   <div class="text-checker" id="text-checker"></div>
 </section>
-<div class="stage-bar"><button class="stage-tab active" data-stage="primary">Начален етап <small>I–IV клас</small></button><button class="stage-tab" data-stage="middle">Прогимназия <small>V–VII клас</small></button><button class="stage-tab" data-stage="high">Гимназия <small>VIII–X клас</small></button></div>
 
 <section class="matrix-shell" id="matrix-shell">
   <div class="matrix-intro">
@@ -65,15 +70,36 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
     <div class="matrix-key">Редове: кога работим<br>Колони: как мислим</div>
   </div>
   <div class="reading-matrix" id="reading-matrix"></div>
-  <div class="axis-note"><strong>Важно:</strong> „Преди / по време / след“ не са нива на разбиране, а организация на работата. „Намери и свържи / обясни и обобщи / прецени и обоснови“ не са фиксирана последователност и могат да се използват във всеки момент.</div>
+  <div class="axis-note"><strong>Процеси и стратегии:</strong> Процесите описват какво разбира ученикът. Стратегиите описват как управлява собственото си четене, за да стигне до това разбиране.<br><br><strong>Важно:</strong> „Преди / по време / след“ не са нива на разбиране, а организация на работата. „Намери и свържи / обясни и обобщи / прецени и обоснови“ не са фиксирана последователност и могат да се използват във всеки момент.</div>
   <section class="matrix-detail" id="matrix-detail"></section>
-  <section class="support-section" id="support-section">
-    <div class="support-section-head"><div><h2>Подкрепа</h2><p>Как създаваме смисъл, избор, увереност и настойчивост?</p></div><button class="support-toggle" type="button">Разгледай ▸</button></div>
-    <div class="support-section-body" id="support-section-body"></div>
-  </section>
-  <section class="teaching-section" id="teaching-section">
-    <div class="teaching-section-head"><div><h2>Условия за преподаване на четене във всеки час</h2><p>Как организираме средата и преподаването, така че учениците действително да разбират текста?</p></div><button class="teaching-toggle" type="button">Разгледай ▸</button></div>
-    <div class="teaching-section-body" id="teaching-section-body">
+  <section class="teacher-supports" id="teacher-supports">
+    <button class="teacher-supports-head" type="button" aria-expanded="false">
+      <span><h2>Допълнителни опори за учителя</h2><p>Подкрепа за ангажираност, стратегическо четене и силно преподаване — когато ти потрябва.</p></span>
+      <span class="teacher-supports-arrow">▸</span>
+    </button>
+    <div class="teacher-supports-body">
+      <div class="teacher-supports-tabs" role="tablist">
+        <button class="teacher-supports-tab active" type="button" data-support-panel="motivation">Подкрепа</button>
+        <button class="teacher-supports-tab" type="button" data-support-panel="strategic">Стратегическо четене</button>
+        <button class="teacher-supports-tab" type="button" data-support-panel="teaching">Условия за преподаване</button>
+      </div>
+      <section class="teacher-supports-panel active" data-support-content="motivation">
+        <p class="teacher-supports-panel-intro">Как създаваме смисъл, избор, увереност и настойчивост?</p>
+        <div id="support-section-body"></div>
+      </section>
+      <section class="teacher-supports-panel" data-support-content="strategic">
+        <p class="teacher-supports-panel-intro">Как учениците разпознават затруднение, избират подход и проверяват дали той работи?</p>
+
+      <div class="strategy-tools-grid">
+        <article class="strategy-tool-card"><h3>Когато разбирането се затрудни</h3><p>Ученикът не просто продължава, а избира действие според проблема.</p><ul><li>Спри и назови какво не е ясно.</li><li>Препрочети трудната част.</li><li>Забави темпото и раздели текста.</li><li>Потърси контекстова следа, визуална опора или речник.</li><li>Върни се назад и свържи идеите.</li><li>Провери отново дали разбираш.</li></ul><div class="repair-cycle"><strong>Кратък цикъл:</strong> Забележи → избери стратегия → приложи → провери отново.</div></article>
+        <article class="strategy-tool-card"><h3>Как се преподава стратегия</h3><p>Кратка рутина за превръщане на невидимите читателски решения във видими и упражними действия.</p><ol><li>Назови стратегията и кога е полезна.</li><li>Моделирай я чрез мислене на глас.</li><li>Приложете я заедно върху кратък откъс.</li><li>Учениците я изпробват самостоятелно.</li><li>Обсъдете дали е помогнала и защо.</li></ol></article>
+        <article class="strategy-tool-card"><h3>Ученическа самопроверка</h3><p>Кратка рефлексия по логиката на SORS — не тест, а разговор за осъзнатия избор на стратегия.</p><div class="self-check"><label><input type="checkbox">Знаех защо чета този текст.</label><label><input type="checkbox">Спрях, когато не разбирах.</label><label><input type="checkbox">Избрах стратегия, която да ми помогне.</label><label><input type="checkbox">Проверих дали стратегията е проработила.</label><label><input type="checkbox">Мога да обясня какво ще направя следващия път.</label></div></article>
+      </div>
+    
+      </section>
+      <section class="teacher-supports-panel" data-support-content="teaching">
+        <p class="teacher-supports-panel-intro">Как организираме средата и преподаването, така че учениците действително да разбират текста?</p>
+
       <div class="teaching-grid">
         <article class="teaching-card"><h3>Ясна цел и инструкция</h3><p>Учениците знаят защо четат, какво търсят и как ще използват прочетеното.</p><ul><li>Формулирай конкретна читателска цел.</li><li>Покажи как изглежда качественият отговор.</li><li>Разделяй сложната задача на видими стъпки.</li></ul></article>
         <article class="teaching-card"><h3>Наблюдение на разбирането</h3><p>Учителят проверява не само дали текстът е прочетен, а какво е разбрано и къде възниква затруднение.</p><ul><li>Задавай кратки диагностични въпроси.</li><li>Търси доказателства в текста.</li><li>Променяй подкрепата според отговорите.</li></ul></article>
@@ -82,9 +108,10 @@ main{padding:0 48px 34px}.phase-panel{display:none}.phase-panel.active{display:b
         <article class="teaching-card"><h3>Достъп и разнообразие</h3><p>Учениците срещат различни жанрове, теми и формати и имат реален достъп до подходящи материали.</p><ul><li>Комбинирай художествени и информационни текстове.</li><li>Включвай таблици, графики и дигитални източници.</li><li>Осигурявай избор, когато целта го позволява.</li></ul></article>
         <article class="teaching-card"><h3>Гъвкава подкрепа</h3><p>Подкрепата се адаптира към нуждата, без учениците трайно да бъдат заключвани в групи по „способности“.</p><ul><li>Работи в малки групи за конкретна стратегия.</li><li>Променяй състава и задачата според напредъка.</li><li>Запазвай високи очаквания за всички.</li></ul></article>
       </div>
+    
+      </section>
     </div>
   </section>
-</section>
 
 <nav class="phase-nav"><button class="phase-tab active" data-phase="before"><small>1 · Подготовка</small><strong>Преди четене</strong><span>Смисъл, цел, предварителни знания и план</span></button><button class="phase-tab" data-phase="during"><small>2 · Разбиране</small><strong>По време на четене</strong><span>Намери и свържи · Обясни и обобщи · Прецени и обоснови</span></button><button class="phase-tab" data-phase="after"><small>3 · Използване</small><strong>След четене</strong><span>Приложение, продукт, трансфер и рефлексия</span></button></nav>
 <main><section class="phase-panel active" data-phase-panel="before"><div class="intro-card"><h2>Преди четене: подготвям се</h2><p>Изяснявам целта и смисъла, активирам знанията си, оглеждам текста и избирам подход. Тук стои мотивационното „Защо си струва?“.</p></div><div id="before-content"></div></section><section class="phase-panel" data-phase-panel="during"><div class="intro-card"><h2>По време на четене: изграждам разбиране</h2><p>Трите групи процеси не са последователни фази, а видове умствена работа, които използвам според текста и задачата.</p></div><div id="during-content"></div></section><section class="phase-panel" data-phase-panel="after"><div class="intro-card"><h2>След четене: използвам и осмислям</h2><p>Проверявам разбирането, прилагам прочетеното, създавам продукт и рефлектирам върху начина, по който съм чел.</p></div><div id="after-content"></div></section></main>
@@ -715,7 +742,24 @@ function renderProcessCard(pm,i,d){const cd=sourceForProcess(currentStage,d,pm.k
 function renderAfter(){document.getElementById('after-content').innerHTML=`<div class="section-title">1. Използвай прочетеното</div><div class="outcome-grid">${OUTCOMES[currentStage].map(([t,d,items])=>`<article class="outcome-card"><h3>${t}</h3><p>${d}</p><ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul></article>`).join('')}</div><div class="section-title">2. Направи резултата, избора и напредъка видими</div><div class="support-note">Увереността се изгражда чрез реален продукт, избор, обратна връзка и доказателства за напредък.</div>${phaseSupport('after')}<div class="section-title">3. Обобщи, пренеси и рефлектирай</div><div class="strategy-grid">${afterStrategies[currentStage].map(strategyCard).join('')}</div><div class="callout"><strong>Разграничение:</strong> „Прецени“ е процес на разбиране; резюмето, препоръката, решението или новият текст са продукти, които използват един или повече процеси.</div>`;bindExpandables();}
 function bindExpandables(){document.querySelectorAll('.strategy-summary,.motivation-summary').forEach(btn=>{btn.onclick=()=>btn.closest('.strategy-card,.motivation-card').classList.toggle('open')});document.querySelectorAll('.toggle').forEach(btn=>{btn.onclick=()=>{btn.nextElementSibling.classList.toggle('open');btn.textContent=btn.nextElementSibling.classList.contains('open')?'Скрий насоките ▾':'Как да проектираш задачата ▸';}});}
 function bindTypeButtons(){document.querySelectorAll('.type-btn').forEach(btn=>btn.onclick=()=>{selectedType[currentStage]=btn.dataset.type;renderContext();renderDuring();});}
-function renderAll(){renderContext();renderBefore();renderDuring();renderAfter();}
+function renderAll(){
+const teacherSupports=document.getElementById('teacher-supports');
+const teacherSupportsHead=teacherSupports?.querySelector('.teacher-supports-head');
+if(teacherSupportsHead){
+  teacherSupportsHead.onclick=()=>{
+    teacherSupports.classList.toggle('open');
+    const isOpen=teacherSupports.classList.contains('open');
+    teacherSupportsHead.setAttribute('aria-expanded',isOpen?'true':'false');
+    if(isOpen) renderSupportSection();
+  };
+}
+document.querySelectorAll('.teacher-supports-tab').forEach(tab=>tab.onclick=()=>{
+  document.querySelectorAll('.teacher-supports-tab').forEach(x=>x.classList.toggle('active',x===tab));
+  document.querySelectorAll('.teacher-supports-panel').forEach(panel=>panel.classList.toggle('active',panel.dataset.supportContent===tab.dataset.supportPanel));
+  if(tab.dataset.supportPanel==='motivation') renderSupportSection();
+});
+
+renderContext();renderBefore();renderDuring();renderAfter();}
 document.querySelector('.context-toggle').onclick=()=>{const d=document.getElementById('context-drawer');d.classList.toggle('open');document.querySelector('.context-toggle').textContent=d.classList.contains('open')?'Затвори ▾':'Избери ▸';};
 document.querySelectorAll('.phase-tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.phase-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.phase-panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelector(`[data-phase-panel="${btn.dataset.phase}"]`).classList.add('active');});
 document.querySelectorAll('.stage-tab').forEach(btn=>btn.onclick=()=>{currentStage=btn.dataset.stage;document.querySelectorAll('.stage-tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderAll();});
@@ -829,8 +873,7 @@ function refreshMatrix(){renderMatrix();renderMatrixDetail();renderTextChecker()
 document.addEventListener('click',e=>{if(e.target.closest('.stage-tab')||e.target.closest('.type-btn'))setTimeout(refreshMatrix,0);});
 
 document.querySelector('.text-check-toggle').onclick=()=>{const b=document.getElementById('text-checker');b.classList.toggle('open');document.querySelector('.text-check-toggle').textContent=b.classList.contains('open')?'Затвори проверката ▾':'Провери текста ▸';if(b.classList.contains('open'))renderTextChecker();};
-document.querySelector('.support-toggle').onclick=()=>{const b=document.getElementById('support-section-body');b.classList.toggle('open');document.querySelector('.support-toggle').textContent=b.classList.contains('open')?'Скрий ▾':'Разгледай ▸';if(b.classList.contains('open'))renderSupportSection();};
-document.querySelector('.teaching-toggle').onclick=()=>{const b=document.getElementById('teaching-section-body');b.classList.toggle('open');document.querySelector('.teaching-toggle').textContent=b.classList.contains('open')?'Скрий ▾':'Разгледай ▸';};
+
 refreshMatrix();
 </script>
 
